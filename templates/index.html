@@ -11,34 +11,46 @@
     </body>
 </section>
 
-<div class="card" style="width: 80%;">
-    <img src="images\buildingPCImage.png" alt="buildingPCImage">
+<div class="row g-0">
+  <div class="col-md-4">
+    <img src="{{url_for('static', filename='images/buildingPCImage.png')}}" class="img-fluid rounded-start" alt="buildingPCImage">
+  </div>
+  <div class="col-md-8">
     <div class="card-body">
       <h5 class="card-title">Start Building</h5>
       <p class="card-text">CLicking here will take you the build page in the future.</p>
       <a href="#" class="btn btn-primary">Go somewhere</a>
     </div>
   </div>
+</div>
 
   <br>
 
-  <div class="card" style="width: 80%;">
-    <img src="images\prebuilt.webp" alt="PreBuilt PC">
-    <div class="card-body">
-      <h5 class="card-title">Browse Pre-Builds</h5>
-      <p class="card-text">Clicking here will take you to examples of pre-builds in the future.</p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="{{url_for('static', filename='images/prebuilt.webp')}}" class="img-fluid rounded-start" alt="pre-built">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">Browse Pre-Builds</h5>
+        <p class="card-text">CLicking here will take you view pre-built PCs in the future.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
     </div>
   </div>
 
   <br>
 
-  <div class="card" style="width: 80%;">
-    <img src="images\listings.jpg" alt="listings">
-    <div class="card-body">
-      <h5 class="card-title">Browse Listings</h5>
-      <p class="card-text">Clicking here will take you to the page showing current listings in the future.</p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="{{url_for('static', filename='images/listings.jpg')}}" class="img-fluid rounded-start" alt="listings">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">Browse Listings</h5>
+        <p class="card-text">Clicking here will take you to browse listings in the future.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+      </div>
     </div>
   </div>
 
