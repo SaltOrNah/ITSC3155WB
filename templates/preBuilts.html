@@ -1,7 +1,55 @@
 {% extends '_layout.html' %}
 
 {% block title %}PC Building App{% endblock %}
-
+    
 {% block body %}
-
+<div class="container-fluid">
+    <div class="row">
+        <!-- Vertical Navigation -->
+        <div class="col-md-3">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('showPreBuilts', content='gaming') }}">Gaming</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('showPreBuilts', content='recording') }}">Streaming/Recording</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('showPreBuilts', content='office') }}">Work/Office</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('showPreBuilts', content='school') }}">School</a>
+                </li>
+            </ul>
+        </div>
+        <!-- Cards Section -->
+        <div class="col-md-9">
+            <div class="row">
+                {% for pc in data %}
+                    <div class="col-md-4">
+                        <div class="card mb-3" style="width: 18rem;">
+                            <img src="{{ pc['image_url'] }}" class="card-img-top" alt="{{ pc['name'] }}" style="width: 18rem; height: 180px;">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ pc['name'] }}</h5>
+                                <p class="card-text">Price: ${{ pc['price']}}</p>
+                                <p class="card-text">Rating: {{ pc['rating'] }}</p>
+                                <div class="d-flex justify-content-between mt-2">
+                                    <div>
+                                        <button type="button" class="btn btn-primary btn-lg" style="width: 120px;">Add</button>
+                                    </div>
+                                    <div>
+                                        <button type="button" class="btn btn-secondary btn-lg" style="width: 120px;">View</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% if loop.index % 3 == 0 %}
+                    </div><div class="row">
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
