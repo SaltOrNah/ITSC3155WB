@@ -3,5 +3,40 @@
 {% block title %}PC Building App{% endblock %}
 
 {% block body %}
-
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                <th scope="col">Item Type</th>
+                <th scope="col">Name</th>
+                <th scope="col">Item Link</th>
+                <th scope="col">Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart %}
+                <tr>
+                <td>{{ item['item_type'] }}</td>
+                <td>{{ item['name'] }}</td>
+                <td><a href="{{ item['item_link'] }}">Link</a></td>
+                <td>${{ item['price'] }}</td>
+                <td>
+                    <form action="/remove_from_cart" method="post">
+                        <input type="hidden" name="item_id" value="{{ item['id'] }}">
+                        <button type="submit" class="btn btn-danger">Remove</button>
+                    </form>
+                </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2"></td>
+                    <th>Estimated Total:</th>
+                    <td>${{ '%.2f' % estimate }}</td>
+                    <td colspan="3"></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
 {% endblock %}
