@@ -11,44 +11,44 @@ def showStartBuild():
     content = request.args.get('content', 'motherboard')
     image_url = 'https://ralfvanveen.com/wp-content/uploads//2021/06/Placeholder-_-Begrippenlijst.svg'
     if content == 'motherboard':
-        data = [{'name': 'motherboard1', 'price': '70.00', 'rating': 4.8, 'image_url': image_url},
-                {'name': 'motherboard2', 'price': '120.00', 'rating': 3.4, 'image_url': image_url},
-                {'name': 'motherboard3', 'price': '69.50', 'rating': 2.1, 'image_url': image_url},
-                {'name': 'motherboard4', 'price': '100.00', 'rating': 4.5, 'image_url': image_url},
-                {'name': 'motherboard5', 'price': '90.00', 'rating': 3.6, 'image_url': image_url},
-                {'name': 'motherboard6', 'price': '89.99', 'rating': 3.3, 'image_url': image_url}]
+        data = [{'name': 'motherboard1', 'price': '70.00', 'rating': 4.8, 'brand': 'Intel', 'image_url': image_url},
+                {'name': 'motherboard2', 'price': '120.00', 'rating': 3.4, 'brand': 'Intel', 'image_url': image_url},
+                {'name': 'motherboard3', 'price': '69.50', 'rating': 2.1, 'brand': 'Intel', 'image_url': image_url},
+                {'name': 'motherboard4', 'price': '100.00', 'rating': 4.5, 'brand': 'Intel', 'image_url': image_url},
+                {'name': 'motherboard5', 'price': '90.00', 'rating': 3.6, 'brand': 'Intel', 'image_url': image_url},
+                {'name': 'motherboard6', 'price': '89.99', 'rating': 3.3, 'brand': 'Intel', 'image_url': image_url}]
     elif content == 'cpu':
-        data = [{'name':'cpu1', 'price':'180.00', 'rating':4.2, 'image_url': image_url},
-                {'name':'cpu2', 'price':'320.00', 'rating':3.9, 'image_url': image_url},
-                {'name':'cpu3', 'price':'450.00', 'rating':3.1, 'image_url': image_url}]
+        data = [{'name':'cpu1', 'price':'180.00', 'rating':4.2, 'brand': 'Intel', 'image_url': image_url},
+                {'name':'cpu2', 'price':'320.00', 'rating':3.9, 'brand': 'Intel', 'image_url': image_url},
+                {'name':'cpu3', 'price':'450.00', 'rating':3.1, 'brand': 'Intel', 'image_url': image_url}]
     elif content == 'storage':
-        data = [{'name':'storage1', 'price':'200.00', 'rating':4.5, 'image_url': image_url},
-                {'name':'storage2', 'price':'290.00', 'rating':3.7, 'image_url': image_url},
-                {'name':'storage3', 'price':'550.00', 'rating':2.9, 'image_url': image_url}]
+        data = [{'name':'storage1', 'price':'200.00', 'rating':4.5, 'brand': 'Intel', 'image_url': image_url},
+                {'name':'storage2', 'price':'290.00', 'rating':3.7, 'brand': 'Intel', 'image_url': image_url},
+                {'name':'storage3', 'price':'550.00', 'rating':2.9, 'brand': 'Intel', 'image_url': image_url}]
     elif content == 'power':
-        data = [{'name':'power1', 'price':'160.00', 'rating':4.0, 'image_url': image_url},
-                {'name':'power2', 'price':'310.00', 'rating':3.6, 'image_url': image_url},
-                {'name':'power3', 'price':'480.00', 'rating':3.3, 'image_url': image_url}]
+        data = [{'name':'power1', 'price':'160.00', 'rating':4.0, 'brand': 'Intel', 'image_url': image_url},
+                {'name':'power2', 'price':'310.00', 'rating':3.6, 'brand': 'Intel', 'image_url': image_url},
+                {'name':'power3', 'price':'480.00', 'rating':3.3, 'brand': 'Intel', 'image_url': image_url}]
     elif content == 'graphics':
-        data = [{'name':'graphics1', 'price':'180.00', 'rating':4.2, 'image_url': image_url},
-                {'name':'graphics2', 'price':'320.00', 'rating':3.9, 'image_url': image_url},
-                {'name':'graphics3', 'price':'450.00', 'rating':3.1, 'image_url': image_url}]
+        data = [{'name':'graphics1', 'price':'180.00', 'rating':4.2, 'brand': 'Intel', 'image_url': image_url},
+                {'name':'graphics2', 'price':'320.00', 'rating':3.9, 'brand': 'Intel', 'image_url': image_url},
+                {'name':'graphics3', 'price':'450.00', 'rating':3.1, 'brand': 'Intel', 'image_url': image_url}]
     elif content == 'cooling':
-        data = [{'name':'cooling1', 'price':'200.00', 'rating':4.5, 'image_url': image_url},
-                {'name':'cooling2', 'price':'290.00', 'rating':3.7, 'image_url': image_url},
-                {'name':'cooling3', 'price':'550.00', 'rating':2.9, 'image_url': image_url}]
+        data = [{'name':'cooling1', 'price':'200.00', 'rating':4.5, 'brand': 'Intel', 'image_url': image_url},
+                {'name':'cooling2', 'price':'290.00', 'rating':3.7, 'brand': 'Intel', 'image_url': image_url},
+                {'name':'cooling3', 'price':'550.00', 'rating':2.9, 'brand': 'Intel', 'image_url': image_url}]
     elif content == 'memory':
-        data = [{'name':'memory1', 'price':'160.00', 'rating':4.0, 'image_url': image_url},
-                {'name':'memory2', 'price':'310.00', 'rating':3.6, 'image_url': image_url},
-                {'name':'memory3', 'price':'480.00', 'rating':3.3, 'image_url': image_url}]
+        data = [{'name':'memory1', 'price':'160.00', 'rating':4.0, 'brand': 'Intel', 'image_url': image_url},
+                {'name':'memory2', 'price':'310.00', 'rating':3.6, 'brand': 'Intel', 'image_url': image_url},
+                {'name':'memory3', 'price':'480.00', 'rating':3.3, 'brand': 'Intel', 'image_url': image_url}]
     elif content == 'casing':
-        data = [{'name':'casing1', 'price':'160.00', 'rating':4.0, 'image_url': image_url},
-                {'name':'casing2', 'price':'310.00', 'rating':3.6, 'image_url': image_url},
-                {'name':'casing3', 'price':'480.00', 'rating':3.3, 'image_url': image_url}]
+        data = [{'name':'casing1', 'price':'160.00', 'rating':4.0, 'brand': 'Intel', 'image_url': image_url},
+                {'name':'casing2', 'price':'310.00', 'rating':3.6, 'brand': 'Intel', 'image_url': image_url},
+                {'name':'casing3', 'price':'480.00', 'rating':3.3, 'brand': 'Intel', 'image_url': image_url}]
     elif content == 'accessories':
-        data = [{'name':'accessories1', 'price':'160.00', 'rating':4.0, 'image_url': image_url},
-                {'name':'accessories2', 'price':'310.00', 'rating':3.6, 'image_url': image_url},
-                {'name':'accessories3', 'price':'480.00', 'rating':3.3, 'image_url': image_url}]
+        data = [{'name':'accessories1', 'price':'160.00', 'rating':4.0, 'brand': 'Intel', 'image_url': image_url},
+                {'name':'accessories2', 'price':'310.00', 'rating':3.6, 'brand': 'Intel', 'image_url': image_url},
+                {'name':'accessories3', 'price':'480.00', 'rating':3.3, 'brand': 'Intel', 'image_url': image_url}]
     else:
         abort(404)
 
