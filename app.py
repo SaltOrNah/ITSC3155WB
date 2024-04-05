@@ -71,6 +71,13 @@ def remove_from_cart():
     #Show updated cart
     return redirect('/cart')
 
+@app.post('/add_to_cart')
+def add_to_cart():
+    #grab the item to be added
+    item = request.form['item']
+    cart.append(item)
+    return redirect(request.referrer or url_for('index'))
+
 @app.get('/signUp')
 def showSignUp():
     return render_template('signUp.html')
