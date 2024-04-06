@@ -2,104 +2,59 @@ DROP DATABASE IF EXIST PartsComp;
 CREATE DATABASE IF NOT EXIST PartsComp;
 
 CREATE TABLE IF NOT EXIST users(
-    user_id         SERIAL,
+    user_id         SERIAL NOT NULL,
     user_name       VARCHAR(255) NOT NULL,
     hashed_password VARCHAR(255) NOT NULL,
     is_admin        BOOLEAN,
     PRIMARY KEY (user_id)
-)
+);
 
-CREATE TABLE IF NOT EXIST cpu(
-    cpu_id          SERIAL,
-    cpu_name        VARCHAR(255) NOT NULL,
-    brand           VARCHAR(255) NOT NULL,
+CREATE TABLE IF NOT EXIST part(
+    part_id         SERIAL NOT NULL,
+    brand           VARCHAR(255),
     price           DECIMAL(10,2),
-    cpu_url         VARCHAR(255),
-    has_conflict    BOOLEAN,
+    rating          INT,
+    wat_req         INT NULL,
+    amount          INT NULL,
     PRIMARY KEY (part_id)
-)
-
-CREATE TABLE IF NOT EXIST graphics_card(
-    graphics_id     SERIAL,
-    graphics_name   VARCHAR(255) NOT NULL,
-    brand           VARCHAR(255) NOT NULL,
-    price           DECIMAL(10,2),
-    graphics_url    VARCHAR(255),
-    has_conflict    BOOLEAN,
-    PRIMARY KEY (part_id)
-)
-
-CREATE TABLE IF NOT EXIST storage(
-    storage_id      SERIAL,
-    storage_name    VARCHAR(255) NOT NULL,
-    brand           VARCHAR(255) NOT NULL,
-    price           DECIMAL(10,2),
-    storage_url     VARCHAR(255),
-    has_conflict    BOOLEAN,
-    PRIMARY KEY (part_id)
-)
-
-CREATE TABLE IF NOT EXIST power_supply(
-    power_id        SERIAL,
-    power_name      VARCHAR(255) NOT NULL,
-    brand           VARCHAR(255) NOT NULL,
-    price           DECIMAL(10,2),
-    power_url       VARCHAR(255),
-    has_conflict    BOOLEAN,
-    PRIMARY KEY (power_id)
-)
-
-CREATE TABLE IF NOT EXIST motherboard(
-    board_id        SERIAL,
-    board_name      VARCHAR(255) NOT NULL,
-    brand           VARCHAR(255) NOT NULL,
-    price           DECIMAL(10,2),
-    board_url       VARCHAR(255),
-    has_conflict    BOOLEAN,
-    PRIMARY KEY (board_id)
-)
-
-CREATE TABLE IF NOT EXIST cooling(
-    board_id        SERIAL,
-    board_name      VARCHAR(255) NOT NULL,
-    brand           VARCHAR(255) NOT NULL,
-    price           DECIMAL(10,2),
-    board_url       VARCHAR(255),
-    has_conflict    BOOLEAN,
-    PRIMARY KEY (board_id)
-)
-
-CREATE TABLE IF NOT EXIST memory(
-    board_id        SERIAL,
-    board_name      VARCHAR(255) NOT NULL,
-    brand           VARCHAR(255) NOT NULL,
-    price           DECIMAL(10,2),
-    board_url       VARCHAR(255),
-    has_conflict    BOOLEAN,
-    PRIMARY KEY (board_id)
-)
+);
 
 CREATE TABLE IF NOT EXIST build(
-    build_id        SERIAL,
-    cpu_id          ,
-    power_id        ,
-    graphics_id     ,
-    cooling_id      ,
-    memory_id       ,
-    casing_id       ,
-    storage         ,
-    memory          ,
-    user_id         ,
+    build_id        SERIAL NOT NULL,
     referal_url     VARCHAR(255),
+    time_created    TIMESTAMP,
+    is_private      BOOLEAN,
     total_price     INT,
-    FOREIGN KEY (cpu_id)        REFERENCES cpu(cpu_id)
-    FOREIGN KEY (power_id)      REFERENCES power_supply(power_id)
-    FOREIGN KEY (graphics_id)   REFERENCES graphics_card(graphics_id)
-    FOREIGN KEY (cooling_id)    REFERENCES cooling(cooling_id)
-    FOREIGN KEY (memory_id)     REFERENCES memory(memory_id)
-    FOREIGN KEY (casing_id)     REFERENCES casing(casing_id)
-    FOREIGN KEY (storage)       REFERENCES storage(storage_id)
-    FOREIGN KEY (memory)        REFERENCES memory(memory_id)
-    FOREIGN KEY (user_id)       REFERENCES user(user_id)
+    user_id         INT,
     PRIMARY KEY (build_id)
-)
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+
+CREATE TABLE IF NOT EXIST components(
+    part_id         INT,
+    build_id        INT,
+    FOREIGN KEY (build_id) REFERENCES build(build_id)
+    FOREIGN KEY (part_id) REFERENCES part(part_id)
+);
+
+
+-- If we want to do comments/forums
+CREATE TABLE IF NOT EXIST post(
+    post_id         SERIAL,
+    user_id         INT,
+    build_id        INT NULL,
+    body_text       TEXT,
+
+    PRIMARY KEY (post_id)
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    FOREIGN KEY (build_id) REFERENCES build(user_id)
+);
+
+CREATE TABLE IF NOT EXIST comment(
+    user_id         INT,
+    post_id         INT, 
+
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    FOREIGN KEY (post_id) REFERENCES post(post_id)
+);
