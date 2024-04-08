@@ -1,7 +1,57 @@
 {% extends '_layout.html' %}
 
 {% block title %}PC Building App{% endblock %}
-
+{% block head %}
+<link href="{{ url_for('static', filename='boxicons.min.css') }}" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('templates', filename='signLog.css') }}">
+<script src="{{ url_for('templates', filename='signLog.js') }}"></script>
+{% endblock%}
 {% block body %}
+<body>
+    <div class="container">
+    <div class="form signup">
+        <div class="form-content">
+            <header>Signup</header>
+            <form action="#">
+                <div class="field input-field">
+                    <input type="username" placeholder="Username" class="input">
+                </div>
+
+                <div class="field input-field">
+                    <input type="password" placeholder="Create password" class="password">
+                </div>
+
+                <div class="field input-field">
+                    <input type="password" placeholder="Confirm password" class="password">
+                    
+                </div>
+
+                <div class="field button-field">
+                    <button>Signup</button>
+                </div>
+            </form>
+
+            <div class="form-link">
+                <span>Already have an account? <a href="login.html" class="link login-link">Login</a></span>
+            </div>
+        </div>
+
+        <div class="line"></div>
+
+        <!-- <div class="media-options">
+            <a href="#" class="field facebook">
+                <i class='bx bxl-facebook facebook-icon'></i>
+                <span>Login with Facebook</span>
+            </a>
+        </div> -->
+
+        <div class="media-options">
+            <a href="#" class="field google">
+                <img src="images/google-icon.jpg" alt="" class="google-img">
+                <span>Login with Google</span>
+            </a>
+        </div>
+    </div>
+</body>
 
 {% endblock %}

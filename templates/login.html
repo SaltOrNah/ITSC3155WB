@@ -1,7 +1,56 @@
 {% extends '_layout.html' %}
 
 {% block title %}PC Building App{% endblock %}
-
+<link rel="stylesheet" href="{{ url_for('static', filename='static/signLog.css') }}">
+<link href="{{ url_for('static', filename='boxicons.min.css') }}" rel="stylesheet">
+<script src="{{ url_for('static', filename='static/signLog.js') }}"></script>
 {% block body %}
+<body>
+    <section class="container forms">
+        <div class="form login">
+            <div class="form-content">
+                <header>Login</header>
+                <form action="#">
+                    <div class="field input-field">
+                        <input type="username" placeholder="Username" class="input">
+                    </div>
 
+                    <div class="field input-field">
+                        <input type="password" placeholder="Password" class="password">
+                    </div>
+
+                    <div class="form-link">
+                        <a href="#" class="forgot-pass">Forgot password?</a>
+                    </div>
+
+                    <div class="field button-field">
+                        <button>Login</button>
+                    </div>
+                </form>
+
+                <div class="form-link">
+                    <span>Don't have an account? <a href="signUp.html" class="link signup-link">Signup</a></span>
+                </div>
+            </div>
+
+            <div class="line"></div>
+
+            <!-- <div class="media-options">
+                <a href="#" class="field facebook">
+                    <i class='bx bxl-facebook facebook-icon'></i>
+                    <span>Login with Facebook</span>
+                </a>
+            </div> -->
+
+            <div class="media-options">
+                <a href="#" class="field google">
+                    <img src="images/google-icon.jpg" alt="" class="google-img">
+                    <span>Login with Google</span>
+                </a>
+            </div>
+
+        </div>
+
+    </section>
+</body>
 {% endblock %}
