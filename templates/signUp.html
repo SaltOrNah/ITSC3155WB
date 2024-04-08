@@ -3,8 +3,8 @@
 {% block title %}PC Building App{% endblock %}
 {% block head %}
 <link href="{{ url_for('static', filename='boxicons.min.css') }}" rel="stylesheet">
-<link rel="stylesheet" href="{{ url_for('templates', filename='signLog.css') }}">
-<script src="{{ url_for('templates', filename='signLog.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='signLog.css') }}">
+<script src="{{ url_for('static', filename='signLog.js') }}"></script>
 {% endblock%}
 {% block body %}
 <body>
@@ -47,7 +47,7 @@
 
         <div class="media-options">
             <a href="#" class="field google">
-                <img src="images/google-icon.jpg" alt="" class="google-img">
+                <img src="static/google-icon.jpg" alt="google-icon" class="google-img">
                 <span>Login with Google</span>
             </a>
         </div>
