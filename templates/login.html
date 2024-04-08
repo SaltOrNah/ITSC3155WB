@@ -1,9 +1,11 @@
 {% extends '_layout.html' %}
 
 {% block title %}PC Building App{% endblock %}
-<link rel="stylesheet" href="{{ url_for('static', filename='static/signLog.css') }}">
+{% block head %}
 <link href="{{ url_for('static', filename='boxicons.min.css') }}" rel="stylesheet">
-<script src="{{ url_for('static', filename='static/signLog.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('templates', filename='signLog.css') }}">
+<script src="{{ url_for('templates', filename='signLog.js') }}"></script>
+{% endblock%}
 {% block body %}
 <body>
     <section class="container forms">
