@@ -1,4 +1,7 @@
 from flask import Flask, abort, redirect, render_template, request
+from repositories import builds_repo
+from dotenv import load_dotenv
+load_dotenv()
 
 app = Flask(__name__)
 
@@ -9,6 +12,7 @@ def index():
 @app.get('/startBuild')
 def showStartBuild():
     content = request.args.get('content', 'motherboard')
+    all_parts = builds_repo.get_all_parts_for_table()
     image_url = 'https://ralfvanveen.com/wp-content/uploads//2021/06/Placeholder-_-Begrippenlijst.svg'
     if content == 'motherboard':
         data = [{'name': 'motherboard1', 'price': '70.00', 'rating': 4.8, 'brand': 'Intel', 'image_url': image_url},
