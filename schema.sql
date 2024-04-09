@@ -6,7 +6,7 @@ CREATE TYPE part_type AS ENUM('motherboard', 'cpu', 'storage', 'power', 'graphic
 
 CREATE TABLE IF NOT EXIST users(
     user_id         SERIAL          NOT NULL,
-    username        VARCHAR(255)    NOT NULL,
+    username        VARCHAR(255)    UNIQUE NOT NULL,
     email           VARCHAR(255)    UNIQUE NOT NULL,
     hashed_password VARCHAR(255)    NOT NULL,
     is_admin        BOOLEAN         NOT NULL,
@@ -26,10 +26,8 @@ CREATE TABLE IF NOT EXIST parts(
 CREATE TABLE IF NOT EXIST builds(
     build_id        SERIAL          NOT NULL,
     build_name      VARCHAR(255)    NOT NULL,
-    refer_url       VARCHAR(255)    NOT NULL,
-    time_created    TIMESTAMP       NOT NULL,
+    build_timestamp TIMESTAMP       NOT NULL,
     is_private      BOOLEAN         NOT NULL,
-    total_price     DECIMAL(10,2)   NOT NULL,
     user_id         INT             NOT NULL,
     PRIMARY KEY (build_id),
     FOREIGN KEY (user_id) REFERENCES users(user_id)
