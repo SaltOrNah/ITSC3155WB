@@ -1,4 +1,7 @@
 from flask import Flask, abort, redirect, render_template, request
+from repositories import builds_repo
+from dotenv import load_dotenv
+load_dotenv()
 
 app = Flask(__name__)
 
