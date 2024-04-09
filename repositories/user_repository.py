@@ -4,7 +4,7 @@ from typing import Any
 def does_username_exist(username: str) -> bool:
     pool = get_pool()
     with pool.connection() as conn: 
-        with conn.curser() as cur:
+        with conn.cursor() as cur:
             cur.execute('''
                         SELECT
                             user_id
@@ -24,7 +24,7 @@ def create_user(username:str, password: str) -> dict[str, Any]:
                         INSERT INTO app_user (username, password)
                         VALUES (%s, %s)
                         RETURNING user_id
-                        ''')
+                        ''', [username, password])
             user_id = cur.fetchone()
             if user_id is None:
                 raise Exception('Failed to create user')
