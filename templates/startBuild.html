@@ -3,137 +3,69 @@
 {% block title %}PC Building App{% endblock %}
 
 {% block body %}
-<div class="container text-center">
-<div class="row">
-  <div class="col-sm-6" style="width: 18rem;">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Motherboard</h5>
-        <p class="card-text">Connects all internal components of your PC</p>
-        <select class="form-select" aria-label="Default select example">
-            <option selected>Select Motherboard</option>
-            <option value="4">These will be filled in with Motherboards from out database</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-        </select>
+<div class="container">
+  <div class="row">
+      <!-- Vertical Navigation -->
+      <div class="col-md-3">
+          <ul class="nav flex-column">
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('showStartBuild', content='motherboard') }}">Motherboard</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('showStartBuild', content='cpu') }}">CPU</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('showStartBuild', content='storage') }}">Storage</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('showStartBuild', content='power') }}">Power Supply</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('showStartBuild', content='graphics') }}">Graphics/Video Card</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('showStartBuild', content='cooling') }}">Cooling</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('showStartBuild', content='memory') }}">Memory Card</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('showStartBuild', content='casing') }}">PC Casing</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('showStartBuild', content='accessories') }}">Accessories</a>
+              </li>
+          </ul>
       </div>
-    </div>
-  </div>
-  <div class="col-sm-6" style="width: 18rem;">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">CPU</h5>
-        <p class="card-text">Processes and executes instructions and calculations</p>
-        <select class="form-select" aria-label="Default select example">
-            <option selected>Select CPU</option>
-            <option value="4">These will be filled in with CPUs from out database</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-        </select>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6" style="width: 18rem;">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Storage</h5>
-        <p class="card-text">How many files that can be stored on your computer</p>
-        <select class="form-select" aria-label="Default select example">
-            <option selected>Select Storage</option>
-            <option value="4">These will be filled in with motherboards from out database</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-        </select>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-6" style="width: 18rem;">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Power</h5>
-        <p class="card-text">The power supply to the PC
-            <p class="fs-6 fw-medium">Some components require a certain amount of voltage!</p>
-        </p>
-        <select class="form-select" aria-label="Default select example">
-            <option selected>Select Power Supply</option>
-            <option value="4">These will be filled in with Power Supply from out database</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-        </select>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="row">
-    <div class="col-sm-6" style="width: 18rem;">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Graphics card</h5>
-            <p class="card-text">Video card which displays images on your monitor</p>
-            <select class="form-select" aria-label="Default select example">
-                <option selected>Select Graphics card</option>
-                <option value="4">These will be filled in with Cards from out database</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-            </select>
+      <!-- Cards Section -->
+      <div class="col-md-9">
+          <div class="row">
+              {% for comp in data %}
+                  <div class="col-md-4">
+                      <div class="card mb-3" style="width: 18rem;">
+                          <img src="{{ comp['image_url'] }}" class="card-img-top" alt="{{ comp['name'] }}" style="width: 18rem; height: 180px;">
+                          <div class="card-body">
+                              <h5 class="card-title">{{ comp['name'] }}</h5>
+                              <p class="card-text">Price: ${{ comp['price']}}</p>
+                              <p class="card-text">Rating: {{ comp['rating'] }}</p>
+                              <p class="card-text">Brand: {{ comp['brand'] }}</p>
+                              <div class="d-flex justify-content-between mt-2">
+                                  <div>
+                                      <button type="button" class="btn btn-primary btn-lg" style="width: 120px;">Select</button>
+                                  </div>
+                                  <div>
+                                      <button type="button" class="btn btn-secondary btn-lg" style="width: 120px;">View</button>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              {% if loop.index % 3 == 0 %}
+                  </div><div class="row">
+              {% endif %}
+              {% endfor %}
           </div>
-        </div>
       </div>
-      <div class="col-sm-6" style="width: 18rem;">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Cooling</h5>
-            <p class="card-text">Cools the PC allowing for better performance</p>
-            <select class="form-select" aria-label="Default select example">
-                <option selected>Select Cooling options</option>
-                <option value="4">These will be filled in with Cooling types from out database</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-            </select>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6" style="width: 18rem;">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Memory Card</h5>
-            <p class="card-text">RAM or temporary memory which the PC has very quick access to</p>
-            <select class="form-select" aria-label="Default select example">
-                <option selected>Select Memory Card</option>
-                <option value="4">These will be filled in with Memory Cards from out database</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-            </select>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6" style="width: 18rem;">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Casing</h5>
-            <p class="card-text">Physical case that you put the components into</p>
-            <select class="form-select" aria-label="Default select example">
-                <option selected>Select Casing</option>
-                <option value="4">These will be filled in with Casings from out database</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-            </select>
-          </div>
-        </div>
-      </div>
-</div>
-</div>
-<div class="row">
-      <div class="row p-5">
-        <button type="button" class="btn btn-primary">Save build</button>
-    </div>
+  </div>
 </div>
 {% endblock %}

@@ -3,7 +3,7 @@
 {% block title %}PC Building App{% endblock %}
 
 {% block body %}
-<section>
+<!-- <section>
     <div style = "text-align: center; padding: 50px"
     <body style = "display: flex; justify-content: center;">
     <h1 style="color: #333; font-size: 48px; text-shadow: 2px 2px 4px #aaa;">Welcome to <span style="color: #FF4500;">Parts Complier</span>!</h1>
@@ -52,7 +52,64 @@
         <a href="#" class="btn btn-primary">Go somewhere</a>
       </div>
     </div>
-  </div>
+  </div> -->
 
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Home Page</title>
+      <link rel="stylesheet" href="templates\static\.css">
+  </head>
+  <body>
+      
+      <header>
+        <h1 style="color: #333; font-size: 48px; text-shadow: 2px 2px 4px #aaa;">Welcome to <span style="color: #FF4500;">Parts Complier</span>!</h1>
+      </header>
+  <main>
+      <!-- Custom Builder -->
+      <div class="imgbox1">
+          <div class="imginbox"><a href="startBuild.html">
+              <img src="static\buildingPCImage.png"></a></div>
+          <div class="imgboxbody">
+              <p>
+              Start Building<br>
+              Create a custom PC for your needs.
+              </p>
+          </div>
+      </div>
+      
+      <!-- Prebuilts -->
+      <div class="imgbox1">
+          <div class="imginbox"> <a href="preBuilts.html">
+              <img src="static\prebuilt.webp" alt="prebuilt-pc"></a></div>
+          <div class="imgboxbody">
+              <p>
+              Prebuilts<br>
+              Browse prebuilt computers.
+              </p>
+          </div>
+      </div>
+  
+      <!-- Browse PCs -->
+      <div class="imgbox1">
+          <div class="imginbox"> <a href="browse.html">
+              <img src="static\listings.jpg" alt="prebuilt-pc"></a></div>
+          <div class="imgboxbody">
+              <p>
+              Browse Listings<br>
+              Browse computers up for sale from other users.
+              </p>
+          </div>
+      </div>
+  
+  </main>
+      
+  
+      <footer id="footer"><p>&copy;PC Builders</p></footer>
+  
+  </body>
+  </html>
 
 {% endblock %}
