@@ -7,8 +7,8 @@ def get_all_builds_from_user_id(user_id: int):
     with pool.connection() as conn:
         with conn.cursor(row_factory=dict_row) as cursor:
             cursor.execute('''
-                            SELECT a.build_id, a.build_name, a.refer_url, a.build_timestamp, a.is_private, a.total_price
-                            FROM builds a JOIN users b on a.user_id = b.user_id
+                            SELECT a.build_id, a.build_name, a.build_timestamp, a.is_private
+                            FROM builds a JOIN users b ON a.user_id = b.user_id
                             WHERE b.user_id = %s
                            ''', [user_id])
             return cursor.fetchall()
@@ -18,7 +18,7 @@ def get_all_users_for_table():
     with pool.connection() as conn:
         with conn.cursor(row_factory=dict_row) as cursor:
             cursor.execute('''
-                            SELECT user_id, username, email, hashed_password, is_admin,
+                            SELECT user_id, username, email, hashed_password, is_admin
                             FROM users
                            ''')
             return cursor.fetchall()
@@ -28,7 +28,7 @@ def get_all_parts_for_table():
     with pool.connection() as conn:
         with conn.cursor(row_factory=dict_row) as cursor:
             cursor.execute('''
-                            SELECT part_id, part_name, part_type, brand, price, rating,
+                            SELECT part_id, part_name, part_type, brand, price, rating
                             FROM parts
                            ''')
             return cursor.fetchall()
@@ -38,7 +38,7 @@ def get_user_by_id(user_id: int):
     with pool.connection() as conn:
         with conn.cursor(row_factory=dict_row) as cursor:
             cursor.execute('''
-                            SELECT user_id, email, user_name, hashed_password, is_admin,
+                            SELECT user_id, email, username, hashed_password, is_admin
                             FROM users
                             WHERE user_id = %s
                            ''', [user_id])
@@ -73,8 +73,8 @@ def get_total_build_price(build_name: str) -> bool:
     with pool.connection() as conn:
         with conn.cursor(row_factory=dict_row) as cursor:
             cursor.execute('''
-                            SUM(price)
-                            FROM components a JOIN parts b WHERE a.part_id = b.part_id JOIN build c WHERE c.build_id = a.build_id 
+                            SELECT SUM(price)
+                            FROM components a JOIN parts b ON a.part_id = b.part_id JOIN build c ON c.build_id = a.build_id 
                             WHERE build_name = %s
                            ''', [build_name])
             total_price = cursor.fetchone()
