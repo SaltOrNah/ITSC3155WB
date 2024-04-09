@@ -12,22 +12,25 @@
     <div class="form signup">
         <div class="form-content">
             <header>Signup</header>
-            <form action="#">
+            <form action="/signUp" method="post">
                 <div class="field input-field">
-                    <input type="username" placeholder="Username" class="input">
+                    
+                    <input type="text" placeholder="Username" class="input" id="username" name="username">
+                    <label for="username"></label>
                 </div>
 
                 <div class="field input-field">
-                    <input type="password" placeholder="Create password" class="password">
+                    <input type="password" placeholder="Create password" class="password" id="password" name="password">
+                    <label for="password"></label>
                 </div>
 
                 <div class="field input-field">
                     <input type="password" placeholder="Confirm password" class="password">
-                    
+                    <label for="password"></label>
                 </div>
 
                 <div class="field button-field">
-                    <button>Signup</button>
+                    <button type="submit">Signup</button>
                 </div>
             </form>
 
