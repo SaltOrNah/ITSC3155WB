@@ -116,3 +116,7 @@ def createUser():
 @app.get('/login')
 def showLogin():
     return render_template('login.html')
+
+@app.get('/faq')
+def showFaq():
+    return render_template('faq.html')
