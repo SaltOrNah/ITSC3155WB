@@ -73,9 +73,9 @@ def create_user(username: str, hashed_password: str, email: str, is_admin: bool 
         with conn.cursor() as cursor:
             cursor.execute('''
                             INSERT INTO users (username, email, hashed_password, is_admin) 
-                            VALUES (%(username)s, %(password)s, %(email)s, %(is_admin)s)
+                            VALUES (%(username)s, %(email)s, %(hashed_password)s, %(is_admin)s)
                             RETURNING image_id
-                           ''', {'username': username, 'hashed_password': hashed_password, 'email': email, 'is_admin': is_admin})
+                           ''', {'username': username, 'email': email, 'hashed_password': hashed_password, 'is_admin': is_admin})
             user_id = cursor.fetchone()
             if user_id is None:
                 raise Exception('Failed to create user')
