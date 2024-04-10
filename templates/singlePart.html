@@ -1,0 +1,12 @@
+{% extends '_layout.html' %}
+
+{% block title %}Single Part Page{% endblock %}
+
+{% block body %}
+{% for info in part %}
+<h5 class="card-title">{{ info['part_name'] }}</h5>
+<p class="card-text">Price: ${{ info['price']}}</p>
+<p class="card-text">Rating: {{ info['rating'] }}</p>
+<p class="card-text">Brand: {{ info['brand'] }}</p>
+{% endfor %}
+{% endblock %}

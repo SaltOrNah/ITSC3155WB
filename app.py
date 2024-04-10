@@ -15,7 +15,6 @@ def showStartBuild():
     if content not in ['motherboard', 'cpu', 'storage', 'power', 'graphics', 'cooling', 'memory', 'casing'] or content is None:
         return 'Bad Request', 400
     all_parts = builds_repo.get_all_parts_by_part_type(content)
-    print(all_parts)
     return render_template('startBuild.html', data=all_parts)
 
 @app.get('/parts/<int:part_id>')

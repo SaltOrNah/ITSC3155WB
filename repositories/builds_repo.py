@@ -56,6 +56,17 @@ def get_part_by_id(part_id: int) -> dict:
             user_id = cursor.fetchone()
             return user_id is not None
 
+def get_all_parts_by_part_type(part_type: str):
+    pool = get_pool()
+    with pool.connection() as conn:
+        with conn.cursor(row_factory=dict_row) as cursor:
+            cursor.execute('''
+                            SELECT part_id, part_name, part_type, brand, price, rating
+                            FROM parts
+                            WHERE part_type = %s
+                           ''', [part_type])
+            return cursor.fetchall()
+
 def does_username_exist(username: str) -> bool:
     pool = get_pool()
     with pool.connection() as conn:

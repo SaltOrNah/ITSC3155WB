@@ -43,9 +43,9 @@
               {% for comp in data %}
                   <div class="col-md-4">
                       <div class="card mb-3" style="width: 18rem;">
-                          <img src="{{ comp['image_url'] }}" class="card-img-top" alt="{{ comp['name'] }}" style="width: 18rem; height: 180px;">
+                          <!--<img src="{{ comp['image_url'] }}" class="card-img-top" alt="{{ comp['part_name'] }}" style="width: 18rem; height: 180px;">-->
                           <div class="card-body">
-                              <h5 class="card-title">{{ comp['name'] }}</h5>
+                              <h5 class="card-title">{{ comp['part_name'] }}</h5>
                               <p class="card-text">Price: ${{ comp['price']}}</p>
                               <p class="card-text">Rating: {{ comp['rating'] }}</p>
                               <p class="card-text">Brand: {{ comp['brand'] }}</p>
