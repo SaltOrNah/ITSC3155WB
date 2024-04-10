@@ -1,67 +1,10 @@
 {% extends '_layout.html' %}
 
 {% block title %}PC Building App{% endblock %}
-
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='homepage.css') }}">
+{% endblock%}
 {% block body %}
-<!-- <section>
-    <div style = "text-align: center; padding: 50px"
-    <body style = "display: flex; justify-content: center;">
-    <h1 style="color: #333; font-size: 48px; text-shadow: 2px 2px 4px #aaa;">Welcome to <span style="color: #FF4500;">Parts Complier</span>!</h1>
-    </div>
-    </body>
-</section>
-
-<div class="row g-0">
-  <div class="col-md-4">
-    <img src="{{url_for('static', filename='buildingPCImage.png')}}" class="img-fluid rounded-start" alt="buildingPCImage">
-  </div>
-  <div class="col-md-8">
-    <div class="card-body">
-      <h5 class="card-title">Start Building</h5>
-      <p class="card-text">CLicking here will take you the build page in the future.</p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
-    </div>
-  </div>
-</div>
-
-  <br>
-
-  <div class="row g-0">
-    <div class="col-md-4">
-      <img src="{{url_for('static', filename='prebuilt.webp')}}" class="img-fluid rounded-start" alt="pre-built">
-    </div>
-    <div class="col-md-8">
-      <div class="card-body">
-        <h5 class="card-title">Browse Pre-Builds</h5>
-        <p class="card-text">CLicking here will take you view pre-built PCs in the future.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
-    </div>
-  </div>
-
-  <br>
-
-  <div class="row g-0">
-    <div class="col-md-4">
-      <img src="{{url_for('static', filename='listings.jpg')}}" class="img-fluid rounded-start" alt="listings">
-    </div>
-    <div class="col-md-8">
-      <div class="card-body">
-        <h5 class="card-title">Browse Listings</h5>
-        <p class="card-text">Clicking here will take you to browse listings in the future.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
-    </div>
-  </div> -->
-
-  <!DOCTYPE html>
-  <html lang="en">
-  <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Home Page</title>
-      <link rel="stylesheet" href="templates\static\.css">
-  </head>
   <body>
       
       <header>
@@ -95,7 +38,7 @@
       <!-- Browse PCs -->
       <div class="imgbox1">
           <div class="imginbox"> <a href="browse.html">
-              <img src="static\listings.jpg" alt="prebuilt-pc"></a></div>
+              <img src="static\listings2.jpg" alt="prebuilt-pc"></a></div>
           <div class="imgboxbody">
               <p>
               Browse Listings<br>
@@ -107,7 +50,10 @@
   </main>
       
   
-      <footer id="footer"><p>&copy;PC Builders</p></footer>
+  <footer id="footer" style="width: 100%; background-color: #333; padding: 20px; position: fixed; bottom: 0; left: 0;">
+    <p>&copy; PC Builders</p>
+</footer>
+
   
   </body>
   </html>
