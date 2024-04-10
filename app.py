@@ -2,7 +2,6 @@ from flask import Flask, abort, redirect, render_template, request, url_for
 from dotenv import load_dotenv
 from repositories import user_repository
 
-
 load_dotenv()
 
 app = Flask(__name__)
