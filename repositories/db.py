@@ -7,7 +7,7 @@ def get_pool():
     global pool
     if pool is None:
         pool = ConnectionPool(
-            conninfo=os.getenv('DB_CONNECTION_STRING', ''),
+            #Make sure to have .env with DATABASE_URL=""
+            conninfo=os.getenv('DATABASE_URL', ''),
         )
     return pool
-    
