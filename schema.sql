@@ -53,10 +53,10 @@ CREATE TABLE IF NOT EXISTS conflicts(
 );
 
 -- Inserting dummy data into the users table
-INSERT INTO users (username, email, hashed_password, is_admin) VALUES
-('user1', 'user1@example.com', 'hashed_password_1', FALSE),
-('user2', 'user2@example.com', 'hashed_password_2', FALSE),
-('admin', 'admin@example.com', 'hashed_password_admin', TRUE);
+INSERT INTO users (username, hashed_password, is_admin) VALUES
+('user1', 'hashed_password_1', FALSE),
+('user2', 'hashed_password_2', FALSE),
+('admin', 'hashed_password_admin', TRUE);
 
 -- Inserting dummy data into the parts table
 INSERT INTO parts (part_name, part_type, part_image, part_url, brand, price, rating) VALUES
