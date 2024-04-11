@@ -1,7 +1,60 @@
 {% extends '_layout.html' %}
 
 {% block title %}PC Building App{% endblock %}
-
+{% block head %}
+<link href="{{ url_for('static', filename='boxicons.min.css') }}" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='signLog.css') }}">
+<script src="{{ url_for('static', filename='signLog.js') }}"></script>
+{% endblock%}
 {% block body %}
+<body>
+    <div class="container">
+    <div class="form signup">
+        <div class="form-content">
+            <header>Signup</header>
+            <form action="/signUp" method="post">
+                <div class="field input-field">
+                    
+                    <input type="text" placeholder="Username" class="input" id="username" name="username" required>
+                    <label for="username"></label>
+                </div>
+
+                <div class="field input-field">
+                    <input type="password" placeholder="Create password" class="password" id="password" name="password" required>
+                    <label for="password"></label>
+                </div>
+
+                <div class="field input-field">
+                    <input type="password" placeholder="Confirm password" class="password" required>
+                    <label for="password"></label>
+                </div>
+
+                <div class="field button-field">
+                    <button type="submit">Signup</button>
+                </div>
+            </form>
+
+            <div class="form-link">
+                <span>Already have an account? <a href="{{url_for('showLogin')}}" class="link login-link">Login</a></span>
+            </div>
+        </div>
+
+        <div class="line"></div>
+
+        <!-- <div class="media-options">
+            <a href="#" class="field facebook">
+                <i class='bx bxl-facebook facebook-icon'></i>
+                <span>Login with Facebook</span>
+            </a>
+        </div> -->
+
+        <div class="media-options">
+            <a href="#" class="field google">
+                <img src="static/google-icon.jpg" alt="google-icon" class="google-img">
+                <span>Login with Google</span>
+            </a>
+        </div>
+    </div>
+</body>
 
 {% endblock %}

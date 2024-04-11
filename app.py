@@ -1,4 +1,4 @@
-from flask import Flask, abort, redirect, render_template, request
+from flask import Flask, abort, redirect, render_template, request, url_for
 from repositories import builds_repo
 from dotenv import load_dotenv
 load_dotenv()
@@ -93,6 +93,21 @@ def add_to_cart():
 @app.get('/signUp')
 def showSignUp():
     return render_template('signUp.html')
+
+@app.post('/signUp')
+def createUser():
+    username = request.form.get('username')
+    password = request.form.get('password')
+    print(username)
+    print(password)
+    if not username or not password:
+        abort(400)
+    does_existing_user = builds_repo.does_username_exist(username)
+    if does_existing_user:
+        abort(400)
+    builds_repo.create_user(username, password)
+
+    return redirect(url_for('showLogin'))
 
 @app.get('/login')
 def showLogin():
