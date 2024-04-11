@@ -3,10 +3,11 @@
 {% block title %}Single Part Page{% endblock %}
 
 {% block body %}
-{% for info in part %}
-<h5 class="card-title">{{ info['part_name'] }}</h5>
-<p class="card-text">Price: ${{ info['price']}}</p>
-<p class="card-text">Rating: {{ info['rating'] }}</p>
-<p class="card-text">Brand: {{ info['brand'] }}</p>
-{% endfor %}
+<a href="/startBuild?content={{part['part_type']}}">Go back</a>
+<h5 class="card-title">{{ part['part_name'] }}</h5>
+<p class="card-text">Price: ${{ part['price']}}</p>
+<p class="card-text">Type: {{ part['part_type'] }}</p>
+<p class="card-text">Rating: {{ part['rating'] }}</p>
+<p class="card-text">Brand: {{ part['brand'] }}</p>
+<p class="card-text">Buy here: <a href="{{part['part_url']}}"">{{ part['part_url'] }}</a></p>
 {% endblock %}
