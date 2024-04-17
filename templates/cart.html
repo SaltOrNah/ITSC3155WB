@@ -16,13 +16,13 @@
             <tbody>
                 {% for item in cart %}
                 <tr>
-                <td>{{ item['item_type'] }}</td>
-                <td>{{ item['name'] }}</td>
-                <td><a href="{{ item['item_link'] }}">Link</a></td>
+                <td>{{ item['part_type'] }}</td>
+                <td>{{ item['part_name'] }}</td>
+                <td><a href="{{ item['part_url'] }}">Link</a></td>
                 <td>${{ item['price'] }}</td>
                 <td>
                     <form action="/remove_from_cart" method="post">
-                        <input type="hidden" name="item_id" value="{{ item['id'] }}">
+                        <input type="hidden" name="item_id" value="{{ item['part_id'] }}">
                         <button type="submit" class="btn btn-danger">Remove</button>
                     </form>
                 </td>

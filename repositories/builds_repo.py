@@ -12,6 +12,18 @@ def get_all_builds_from_user_id(user_id: int):
                             WHERE b.user_id = %s
                            ''', [user_id])
             return cursor.fetchall()
+        
+def get_all_saves_from_user_id(user_id: int):
+    pool = get_pool()
+    with pool.connection() as conn:
+        with conn.cursor(row_factory=dict_row) as cursor:
+            cursor.execute('''
+                            SELECT b.*
+                            FROM user_builds ub
+                            JOIN builds b ON ub.build_id = b.build_id
+                            WHERE ub.user_id = %s
+                           ''', [user_id])
+            return cursor.fetchall()
 
 def get_all_users_for_table():
     pool = get_pool()
@@ -54,6 +66,17 @@ def get_part_by_id(part_id: int) -> dict:
                             WHERE part_id = %s
                            ''', [part_id])
             return cursor.fetchone()
+        
+def get_build_by_id(build_id: int) -> dict:
+    pool = get_pool()
+    with pool.connection() as conn:
+        with conn.cursor(row_factory=dict_row) as cursor:
+            cursor.execute('''
+                            SELECT *
+                            FROM builds
+                            WHERE build_id = %s
+                           ''', [build_id])
+            return cursor.fetchone()
 
 def get_all_parts_by_part_type(part_type: str):
     pool = get_pool()
@@ -64,6 +87,17 @@ def get_all_parts_by_part_type(part_type: str):
                             FROM parts
                             WHERE part_type = %s
                            ''', [part_type])
+            return cursor.fetchall()
+        
+def get_all_builds_by_build_type(build_type: str):
+    pool = get_pool()
+    with pool.connection() as conn:
+        with conn.cursor(row_factory=dict_row) as cursor:
+            cursor.execute('''
+                            SELECT *
+                            FROM builds
+                            WHERE build_type = %s
+                           ''', [build_type])
             return cursor.fetchall()
 
 def does_username_exist(username: str) -> bool:
@@ -134,3 +168,16 @@ def create_build(parts: dict, build_name: str, is_private: bool, user_id: int):
                 raise Exception('Failed to create build')
             return res[0]
     
+def save_build(build_id: int, user_id: int):
+    build_timestamp = datetime.now()
+    pool = get_pool()
+    with pool.connection() as conn:
+        with conn.cursor() as cursor:
+            cursor.execute('''
+                            INSERT INTO user_builds (user_id, build_id)
+                            SELECT %(user_id)s, %(build_id)s
+                            WHERE NOT EXISTS (
+                            SELECT 1
+                            FROM user_builds
+                            WHERE user_id = %(user_id)s AND build_id = %(build_id)s);
+                           ''', {'build_id': build_id, 'user_id': user_id})

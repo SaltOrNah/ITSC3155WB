@@ -51,7 +51,10 @@
                               <p class="card-text">Brand: {{ comp['brand'] }}</p>
                               <div class="d-flex justify-content-between mt-2">
                                   <div>
-                                      <button type="button" class="btn btn-primary btn-lg" style="width: 120px;">Select</button>
+                                    <form action="/add_to_cart" method="POST">
+                                        <input type="hidden" name="part_id" value="{{ comp['part_id'] }}">
+                                        <button type="submit" class="btn btn-primary btn-lg" style="width: 120px;">Add</button>
+                                    </form>
                                   </div>
                                   <div>
                                       <a class="btn btn-secondary btn-lg" href="/parts/{{comp['part_id']}}" style="width: 120px;">View</a>
