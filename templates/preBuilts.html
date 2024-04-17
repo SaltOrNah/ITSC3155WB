@@ -15,7 +15,7 @@
                     <a class="nav-link" href="{{ url_for('showPreBuilts', content='recording') }}">Streaming/Recording</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('showPreBuilts', content='office') }}">Work/Office</a>
+                    <a class="nav-link" href="{{ url_for('showPreBuilts', content='work') }}">Work/Office</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('showPreBuilts', content='school') }}">School</a>
@@ -28,17 +28,29 @@
                 {% for pc in data %}
                     <div class="col-md-4">
                         <div class="card mb-3" style="width: 18rem;">
-                            <img src="{{ pc['image_url'] }}" class="card-img-top" alt="{{ pc['name'] }}" style="width: 18rem; height: 180px;">
+                            <img src="{{ pc['image_url'] }}" class="card-img-top" alt="{{ pc['build_name'] }}" style="width: 18rem; height: 180px;">
                             <div class="card-body">
-                                <h5 class="card-title">{{ pc['name'] }}</h5>
-                                <p class="card-text">Price: ${{ pc['price']}}</p>
-                                <p class="card-text">Rating: {{ pc['rating'] }}</p>
+                                <h5 class="card-title">{{ pc['build_name'] }}</h5>
+                                <p class="card-text">Price: $WIP</p>
+                                <p class="card-text">
+                                    {% if pc['build_rating'] != -1 %}
+                                        Rating: {{ pc['build_rating'] }}
+                                    {% else %}
+                                        Rating: No Rating
+                                    {% endif %}
+                                </p>
                                 <div class="d-flex justify-content-between mt-2">
                                     <div>
-                                        <button type="button" class="btn btn-primary btn-lg" style="width: 120px;">Add</button>
+                                        <form action="/save_build" method="POST">
+                                            <input type="hidden" name="build_id" value="{{ pc['build_id'] }}">
+                                            <button type="submit" class="btn btn-primary btn-lg" style="width: 120px;">Save</button>
+                                        </form>
                                     </div>
                                     <div>
-                                        <button type="button" class="btn btn-secondary btn-lg" style="width: 120px;">View</button>
+                                        <form action="/view_action" method="POST">
+                                            <input type="hidden" name="build_id" value="{{ pc['build_id'] }}">
+                                            <button type="submit" class="btn btn-secondary btn-lg" style="width: 120px;">View</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
