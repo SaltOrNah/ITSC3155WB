@@ -12,21 +12,21 @@ current_user = {'user_id':1};
 def index():
     return render_template('index.html')
 
-@app.get('/startBuild')
-def showStartBuild():
-    content = request.args.get('content', 'motherboard')
-    if content not in ['motherboard', 'cpu', 'storage', 'power', 'graphics', 'cooling', 'memory', 'casing'] or content is None:
+@app.get('/startBuild/<part_type>')
+def showStartBuild(part_type):
+    if part_type not in ['motherboard', 'cpu', 'storage', 'power', 'graphics', 'cooling', 'memory', 'casing'] or part_type == None:
         return 'Bad Request', 400
-    all_parts = builds_repo.get_all_parts_by_part_type(content)
-    search = request.args.get('q', None)
-    #Suppose to allow search through all parts but it's not working
-    search_by = request.args.get('by', 'current')
-    if(search != None and search != ''):
+    all_parts = builds_repo.get_all_parts_by_part_type(part_type)
+    search_query = request.args.get('q', None)
+    search_by = request.args.get('sh', 'current')
+    sort_by = request.args.get('st', 'current')
+    if(search_query != None and search_query != ''):
         if(search_by is 'current'):
-            all_parts = builds_repo.get_component_parts_by_search(search.lower(), content)
+            all_parts = builds_repo.get_component_parts_by_search(search_query.lower(), part_type)
         else:
-            all_parts = builds_repo.get_all_parts_by_search(search.lower())
-    return render_template('startBuild.html', data=all_parts)
+            all_parts = builds_repo.get_all_parts_by_search(search_query.lower())
+    if(search != None and search != ''):
+    return render_template('startBuild.html', data=all_parts, part_type=part_type)
 
 @app.get('/parts/<int:part_id>')
 def showSinglePart(part_id):

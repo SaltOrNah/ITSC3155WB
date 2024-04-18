@@ -5,7 +5,7 @@
 {% block body %}
 <div class="container">
 <!-- Search Bar -->
-  <form action="{{url_for('showStartBuild', content=content)}}" method="GET">
+  <form action="{{url_for('showStartBuild', part_type=part_type)}}" method="GET">
     <div class="input-group mb-3">
         <button class="btn btn-outline-secondary" type="button">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
@@ -13,6 +13,21 @@
             </svg>
         </button>
         <input type="text" class="form-control" name="q" id="q" placeholder="Search for part" aria-label="Search for part">
+        <div class="input-group-append">
+            <select class="form-select" id="type" aria-label="Default select example">
+                <option value="all">Search by all</option>
+                <option value="current">Search by component</option>
+            </select>
+        </div>
+        <div class="input-group-append">
+            <select class="form-select" id="sort" aria-label="Default select example">
+                <option value="price">Sort by price</option>
+                <option value="rating">Sort by rating</option>
+                <option value="nameAZ">Sort by name (A-Z)</option>
+                <option value="nameZA">Sort by name (Z-A)</option>
+                <option value="brand">Sort by brand</option>
+            </select>
+          </div>
     </div>
   </form>
   <div class="row">
@@ -20,31 +35,31 @@
       <div class="col-md-3">
           <ul class="nav flex-column">
               <li class="nav-item">
-                  <a class="nav-link" href="{{ url_for('showStartBuild', content='motherboard') }}">Motherboard</a>
+                  <a class="nav-link" href="{{ url_for('showStartBuild', part_type='motherboard') }}">Motherboard</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="{{ url_for('showStartBuild', content='cpu') }}">CPU</a>
+                  <a class="nav-link" href="{{ url_for('showStartBuild', part_type='cpu') }}">CPU</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="{{ url_for('showStartBuild', content='storage') }}">Storage</a>
+                  <a class="nav-link" href="{{ url_for('showStartBuild', part_type='storage') }}">Storage</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="{{ url_for('showStartBuild', content='power') }}">Power Supply</a>
+                  <a class="nav-link" href="{{ url_for('showStartBuild', part_type='power') }}">Power Supply</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('showStartBuild', content='graphics') }}">Graphics/Video Card</a>
+                <a class="nav-link" href="{{ url_for('showStartBuild', part_type='graphics') }}">Graphics/Video Card</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('showStartBuild', content='cooling') }}">Cooling</a>
+                <a class="nav-link" href="{{ url_for('showStartBuild', part_type='cooling') }}">Cooling</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('showStartBuild', content='memory') }}">Memory Card</a>
+                <a class="nav-link" href="{{ url_for('showStartBuild', part_type='memory') }}">Memory Card</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('showStartBuild', content='casing') }}">PC Casing</a>
+                <a class="nav-link" href="{{ url_for('showStartBuild', part_type='casing') }}">PC Casing</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('showStartBuild', content='accessories') }}">Accessories</a>
+                <a class="nav-link" href="{{ url_for('showStartBuild', part_type='accessories') }}">Accessories</a>
               </li>
           </ul>
       </div>
