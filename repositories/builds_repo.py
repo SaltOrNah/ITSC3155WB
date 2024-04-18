@@ -88,7 +88,29 @@ def get_all_parts_by_part_type(part_type: str):
                             WHERE part_type = %s
                            ''', [part_type])
             return cursor.fetchall()
-        
+
+def get_component_parts_by_search(search: str, part_type: str):
+    pool = get_pool()
+    with pool.connection() as conn:
+        with conn.cursor(row_factory=dict_row) as cursor:
+            cursor.execute('''
+                            SELECT part_id, part_name, part_type, brand, price, rating
+                            FROM parts
+                            WHERE LOWER(part_name) LIKE %(search)s AND part_type = %(part_type)s
+                           ''', {'search': f'%{search}%', 'part_type': part_type})
+            return cursor.fetchall()
+
+def get_all_parts_by_search(search: str):
+    pool = get_pool()
+    with pool.connection() as conn:
+        with conn.cursor(row_factory=dict_row) as cursor:
+            cursor.execute('''
+                            SELECT part_id, part_name, part_type, brand, price, rating
+                            FROM parts
+                            WHERE LOWER(part_name) LIKE %(search)s
+                           ''', {'search': f'%{search}%'})
+            return cursor.fetchall()
+
 def get_all_builds_by_build_type(build_type: str):
     pool = get_pool()
     with pool.connection() as conn:
