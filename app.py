@@ -13,7 +13,7 @@ def index():
     return render_template('index.html')
 
 @app.get('/startBuild/<part_type>')
-def showStartBuild(part_type = 'motherboard', search_by_current = True, sort_by='price'):
+def showStartBuild(part_type = 'motherboard', query='', search_by = 'component', sort_by='price'):
     if part_type not in ['motherboard', 'cpu', 'storage', 'power', 'graphics', 'cooling', 'memory', 'casing'] or part_type == None:
         return 'Bad Request', 400
     all_parts = builds_repo.get_all_parts_by_part_type(part_type)
@@ -43,7 +43,7 @@ def showStartBuild(part_type = 'motherboard', search_by_current = True, sort_by=
                 all_parts = sorted(all_parts, key=lambda d: d['part_name'], reverse = True)
             case "brand":
                 all_parts = sorted(all_parts, key=lambda d: d['brand'])
-    return render_template('startBuild.html', data=all_parts, part_type=part_type, search_by=search_by, sort_type=sort_by)
+    return render_template('startBuild.html', data=all_parts, part_type=part_type, query=search_query, search_by=search_by, sort_type=sort_by)
 
 @app.get('/parts/<int:part_id>')
 def showSinglePart(part_id):
