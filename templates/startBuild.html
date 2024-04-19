@@ -5,46 +5,58 @@
 {% block body %}
 <div class="container">
 <!-- Search Bar -->
-  <form action="{{url_for('showStartBuild', content=content)}}" method="GET">
+  <form action="{{url_for('showStartBuild', part_type=part_type)}}" method="GET">
     <div class="input-group mb-3">
-        <button class="btn btn-outline-secondary" type="button">
+        <button class="btn btn-outline-secondary" type="submit">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
             </svg>
         </button>
-        <input type="text" class="form-control" name="q" id="q" placeholder="Search for part" aria-label="Search for part">
+        <input type="text" class="form-control" name="q" id="q" placeholder="Search for part" value="{%if query%}{{query}}{%endif%}" aria-label="Search for part">
+        <div class="input-group-append">
+            <select class="form-select" name="sh" id="sh" aria-label="Default select example">
+                <option {%if search_by == 'component' %}selected{%endif%} value='component'>Search by component</option>
+                <option {%if search_by == 'all' %}selected{%endif%} value='all'>Search by all </option>
+            </select>
+        </div>
+        <div class="input-group-append">
+            <select class="form-select" name="st" id="st" aria-label="Default select example">
+                <option {%if sort_by == 'price' %}selected{%endif%}  value="price">Sort by price</option>
+                <option {%if sort_by == 'rating' %}selected{%endif%}  value="rating">Sort by rating</option>
+                <option {%if sort_by == 'nameAZ' %}selected{%endif%}  value="nameAZ">Sort by name (A-Z)</option>
+                <option {%if sort_by == 'nameZA' %}selected{%endif%}  value="nameZA">Sort by name (Z-A)</option>
+                <option {%if sort_by == 'brand' %}selected{%endif%}  value="brand">Sort by brand</option>
+            </select>
+        </div>
     </div>
   </form>
   <div class="row">
       <!-- Vertical Navigation -->
       <div class="col-md-3">
-          <ul class="nav flex-column">
+          <ul class="nav flex-column border">
               <li class="nav-item">
-                  <a class="nav-link" href="{{ url_for('showStartBuild', content='motherboard') }}">Motherboard</a>
+                  <a class="nav-link {%if part_type == 'motherboard'%}border fw-bold text-success{%endif%}" href="{{ url_for('showStartBuild', part_type='motherboard') }}">Motherboard</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="{{ url_for('showStartBuild', content='cpu') }}">CPU</a>
+                  <a class="nav-link {%if part_type == 'cpu'%}border fw-bold text-success{%endif%}" href="{{ url_for('showStartBuild', part_type='cpu') }}">CPU</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="{{ url_for('showStartBuild', content='storage') }}">Storage</a>
+                  <a class="nav-link {%if part_type == 'storage'%}fw-bold text-success{%endif%}" href="{{ url_for('showStartBuild', part_type='storage') }}">Storage</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="{{ url_for('showStartBuild', content='power') }}">Power Supply</a>
+                  <a class="nav-link {%if part_type == 'power'%}fw-bold text-success{%endif%}" href="{{ url_for('showStartBuild', part_type='power') }}">Power Supply</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('showStartBuild', content='graphics') }}">Graphics/Video Card</a>
+                <a class="nav-link {%if part_type == 'graphics'%}fw-bold text-success{%endif%}" href="{{ url_for('showStartBuild', part_type='graphics') }}">Graphics/Video Card</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('showStartBuild', content='cooling') }}">Cooling</a>
+                <a class="nav-link {%if part_type == 'cooling'%}fw-bold text-success{%endif%}" href="{{ url_for('showStartBuild', part_type='cooling') }}">Cooling</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('showStartBuild', content='memory') }}">Memory Card</a>
+                <a class="nav-link {%if part_type == 'memory'%}fw-bold text-success{%endif%}" href="{{ url_for('showStartBuild', part_type='memory') }}">Memory Card</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('showStartBuild', content='casing') }}">PC Casing</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('showStartBuild', content='accessories') }}">Accessories</a>
+                <a class="nav-link {%if part_type == 'casing'%}fw-bold text-success{%endif%}" href="{{ url_for('showStartBuild', part_type='casing') }}">PC Casing</a>
               </li>
           </ul>
       </div>
