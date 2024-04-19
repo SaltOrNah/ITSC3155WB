@@ -21,11 +21,11 @@
         </div>
         <div class="input-group-append">
             <select class="form-select" name="st" id="st" aria-label="Default select example">
-                <option value="price">Sort by price</option>
-                <option value="rating">Sort by rating</option>
-                <option value="nameAZ">Sort by name (A-Z)</option>
-                <option value="nameZA">Sort by name (Z-A)</option>
-                <option value="brand">Sort by brand</option>
+                <option {%if search_by == 'price' %}selected{%endif%}  value="price">Sort by price</option>
+                <option {%if search_by == 'rating' %}selected{%endif%}  value="rating">Sort by rating</option>
+                <option {%if search_by == 'nameAZ' %}selected{%endif%}  value="nameAZ">Sort by name (A-Z)</option>
+                <option {%if search_by == 'nameZA' %}selected{%endif%}  value="nameZA">Sort by name (Z-A)</option>
+                <option {%if search_by == 'brand' %}selected{%endif%}  value="brand">Sort by brand</option>
             </select>
         </div>
     </div>
