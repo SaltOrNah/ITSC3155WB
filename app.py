@@ -43,7 +43,7 @@ def showStartBuild(part_type = 'motherboard', query='', search_by = 'component',
                 all_parts = sorted(all_parts, key=lambda d: d['part_name'], reverse = True)
             case "brand":
                 all_parts = sorted(all_parts, key=lambda d: d['brand'])
-    return render_template('startBuild.html', data=all_parts, part_type=part_type, query=search_query, search_by=search_by, sort_type=sort_by)
+    return render_template('startBuild.html', data=all_parts, part_type=part_type, query=search_query, search_by=search_by, sort_by=sort_by)
 
 @app.get('/parts/<int:part_id>')
 def showSinglePart(part_id):
