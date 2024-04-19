@@ -9,16 +9,16 @@
         <div class="col-md-3">
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('showPreBuilts', content='gaming') }}">Gaming</a>
+                    <a class="nav-link" href="">Something</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('showPreBuilts', content='recording') }}">Streaming/Recording</a>
+                    <a class="nav-link" href="">Something</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('showPreBuilts', content='work') }}">Work/Office</a>
+                    <a class="nav-link" href="">Something</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('showPreBuilts', content='school') }}">School</a>
+                    <a class="nav-link" href="">Something</a>
                 </li>
             </ul>
         </div>
@@ -41,9 +41,9 @@
                                 </p>
                                 <div class="d-flex justify-content-between mt-2">
                                     <div>
-                                        <form action="/save_build" method="POST">
+                                        <form action="/remove_save" method="POST">
                                             <input type="hidden" name="build_id" value="{{ pc['build_id'] }}">
-                                            <button type="submit" class="btn btn-primary btn-lg" style="width: 120px;">Save</button>
+                                            <button type="submit" class="btn btn-primary btn-lg" style="width: 120px;">Remove</button>
                                         </form>
                                     </div>
                                     <div>
