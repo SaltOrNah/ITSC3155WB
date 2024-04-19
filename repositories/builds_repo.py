@@ -191,7 +191,6 @@ def create_build(parts: dict, build_name: str, is_private: bool, user_id: int):
             return res[0]
     
 def save_build(build_id: int, user_id: int):
-    build_timestamp = datetime.now()
     pool = get_pool()
     with pool.connection() as conn:
         with conn.cursor() as cursor:
@@ -203,3 +202,13 @@ def save_build(build_id: int, user_id: int):
                             FROM user_builds
                             WHERE user_id = %(user_id)s AND build_id = %(build_id)s);
                            ''', {'build_id': build_id, 'user_id': user_id})
+
+def remove_saved_build(build_id: int, user_id: int):
+    pool = get_pool()
+    with pool.connection() as conn:
+        with conn.cursor() as cursor:
+            cursor.execute('''
+                            DELETE FROM user_builds
+                            WHERE user_id = %(user_id)s AND build_id = %(build_id)s;
+                           ''', {'build_id': build_id, 'user_id': user_id})
+            conn.commit()
