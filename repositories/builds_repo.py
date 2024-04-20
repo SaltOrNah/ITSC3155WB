@@ -175,6 +175,23 @@ def create_user(username: str, hashed_password: str, is_admin: bool = False):
                 'username': username
             }
 
+def get_user_by_username(username: str, hashed_password: str, is_admin: bool = False) -> None:
+    pool = get_pool()
+    with pool.connection() as conn:
+        with conn.cursor(row_factory=dict_row) as cursor:
+            cursor.execute('''
+                            SELECT
+                                user_id,
+                                username,
+                                hashed_password
+                            FROM
+                                users
+                            WHERE username = %s
+                            ''', [username, hashed_password, is_admin])
+            user = cursor.fetchone()
+            return user
+
+
 def create_build(parts: dict, build_name: str, is_private: bool, user_id: int):
     build_timestamp = datetime.now()
     pool = get_pool()
