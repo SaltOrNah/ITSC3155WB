@@ -12,13 +12,13 @@
         <div class="form login">
             <div class="form-content">
                 <header>Login</header>
-                <form action="#">
+                <form action="/login" method="post">
                     <div class="field input-field">
-                        <input type="username" placeholder="Username" class="input">
+                        <input type="text" placeholder="Username" name="username" id="username" class="input">
                     </div>
 
                     <div class="field input-field">
-                        <input type="password" placeholder="Password" class="password">
+                        <input type="password" placeholder="Password" name="password" id="password" class="password">
                         <i class='bx bx-hide eye-icon'></i>
                     </div>
 
@@ -32,7 +32,7 @@
                 </form>
 
                 <div class="form-link">
-                    <span>Don't have an account? <a href="{{url_for('showSignUp')}}" class="link signup-link">Signup</a></span>
+                    <span>Don't have an account? <a href="{{ url_for('showSignUp') }}">Signup</a></span>
                 </div>
             </div>
 
