@@ -116,6 +116,8 @@ def createUser():
         abort(400)
     hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
     builds_repo.create_user(username, hashed_password)
+    if session:
+        return redirect(url_for('index'))
 
     return redirect(url_for('showLogin'))
 
@@ -128,10 +130,13 @@ def login():
     user = builds_repo.get_user_by_username(username)
     if user is None:
         abort(401)
-    if not bcrypt.check_password_hash(user['hashed_password'], password):
+    stored_hashed_passowrd = user['hashed_password']
+    if not bcrypt.check_password_hash(stored_hashed_passowrd, password):
         abort(401)
     session['user_id'] = user['user_id']
     print("hello there")
+    if session:
+        return redirect(url_for('index'))
     return redirect(url_for('index'))
 
 
