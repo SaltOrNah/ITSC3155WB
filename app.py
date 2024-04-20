@@ -15,7 +15,11 @@ current_user = {'user_id':1};
 
 @app.get('/')
 def index():
-    return render_template('index.html', cart = cart, user = current_user)
+    user_id = session.get('user_id')
+    user = None
+    if user_id:
+        user = builds_repo.get_user_by_id(user_id)
+    return render_template('index.html', cart = cart, user = user)
 
 @app.get('/startBuild/<part_type>')
 def showStartBuild(part_type = 'motherboard', query='', search_by = 'component', sort_by='price'):
@@ -101,7 +105,9 @@ def add_to_cart():
 
 @app.get('/signUp')
 def showSignUp():
-    return render_template('signUp.html', cart = cart, user = current_user)
+    if session:
+        return redirect(url_for('index'))
+    return render_template('signUp.html', cart = cart)
 
 @app.post('/signUp')
 def createUser():
@@ -116,9 +122,6 @@ def createUser():
         abort(400)
     hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
     builds_repo.create_user(username, hashed_password)
-    if session:
-        return redirect(url_for('index'))
-
     return redirect(url_for('showLogin'))
 
 @app.post('/login')
@@ -134,19 +137,20 @@ def login():
     if not bcrypt.check_password_hash(stored_hashed_passowrd, password):
         abort(401)
     session['user_id'] = user['user_id']
-    print("hello there")
-    if session:
-        return redirect(url_for('index'))
     return redirect(url_for('index'))
 
 
 @app.get('/login')
 def showLogin():
-    return render_template('login.html', cart = cart, user = current_user)
+    if session:
+        return redirect(url_for('index'))
+    return render_template('login.html', cart = cart)
 
 @app.post('/')
 def logout():
-    del session[current_user]
+    user_id = session.get('user_id')
+    if user_id is not None:
+        del session['user_id']
     return redirect('/')
 
 @app.route('/show_saves')
@@ -156,7 +160,7 @@ def show_saves():
     data = builds_repo.get_all_saves_from_user_id(current_user['user_id'])
     #Pass the data to be shown on the cards
     if 'user_id' not in session:
-        return redirect("/")
+        return redirect(url_for('showSignUp'))
     return render_template('savedBuilds.html', data=data, cart = cart, user = current_user)
 
 @app.post('/save_build')
