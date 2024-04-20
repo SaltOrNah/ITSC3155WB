@@ -1,9 +1,14 @@
-from flask import Flask, abort, redirect, render_template, request, url_for
+from flask import Flask, abort, redirect, render_template, request, url_for, session
 from repositories import builds_repo
 from dotenv import load_dotenv
+from flask_bcrypt import Bcrypt
 load_dotenv()
 
 app = Flask(__name__)
+
+app.secret_key = 'secret_wah'
+
+bcrypt = Bcrypt(app)
 
 cart = []
 current_user = {'user_id':1};
@@ -106,16 +111,38 @@ def createUser():
     print(password)
     if not username or not password:
         abort(400)
-    does_existing_user = builds_repo.does_username_exist(username)
-    if does_existing_user:
+    does_username_exist = builds_repo.does_username_exist(username)
+    if does_username_exist:
         abort(400)
-    builds_repo.create_user(username, password)
+    hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+    builds_repo.create_user(username, hashed_password)
 
     return redirect(url_for('showLogin'))
+
+@app.post('/login')
+def login():
+    username = request.form.get('username')
+    password = request.form.get('password')
+    if not username or not password:
+        abort(400)
+    user = builds_repo.get_user_by_username(username)
+    if user is None:
+        abort(401)
+    if not bcrypt.check_password_hash(user['hashed_password'], password):
+        abort(401)
+    session['user_id'] = user['user_id']
+    print("hello there")
+    return redirect(url_for('index'))
+
 
 @app.get('/login')
 def showLogin():
     return render_template('login.html', cart = cart, user = current_user)
+
+@app.post('/')
+def logout():
+    del session[current_user]
+    return redirect('/')
 
 @app.route('/show_saves')
 def show_saves():
@@ -123,6 +150,8 @@ def show_saves():
     image_url = 'https://ralfvanveen.com/wp-content/uploads//2021/06/Placeholder-_-Begrippenlijst.svg'
     data = builds_repo.get_all_saves_from_user_id(current_user['user_id'])
     #Pass the data to be shown on the cards
+    if 'user_id' not in session:
+        return redirect("/")
     return render_template('savedBuilds.html', data=data, cart = cart, user = current_user)
 
 @app.post('/save_build')
