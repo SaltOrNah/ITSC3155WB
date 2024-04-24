@@ -125,6 +125,18 @@ def add_to_cart():
         cart.append(builds_repo.get_part_by_id(part_id))
     return redirect(request.referrer or url_for('index'))
 
+@app.post('/create_build')
+def create_build():
+    user_id = session.get('user_id')
+    if user_id is None:
+        return redirect(url_for('showLogin'))
+    build_name = request.form.get('build_name')
+    if build_name is None or build_name == '':
+        return redirect(url_for('showCart'))
+    build_id = builds_repo.create_build(cart, 'gaming', build_name,False, user_id)
+    builds_repo.save_build(build_id, session['user_id'])
+    return redirect(request.referrer or url_for('index'))
+
 @app.get('/signUp')
 def showSignUp():
     if session:
