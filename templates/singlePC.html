@@ -1,0 +1,15 @@
+{% extends '_layout.html' %}
+
+{% block title %}Single PC Page{% endblock %}
+{% block body %}
+<h3 class="mt-4">Single PC Details</h3>
+<ul>
+    <br>
+    <li>Build Name - {{ pc['build_name'] }}</li>
+    <br>
+    <li>Build Type - {{ pc['build_type'] }}</li>
+    <br>
+    <li>Build Rating - {{ pc['build_rating'] }}</li>
+    <br>
+</ul>
+{% endblock %}
