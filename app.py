@@ -144,4 +144,4 @@ def remove_save():
 @app.get('/singlePC/<int:build_id>')
 def get_build(build_id):
     build = builds_repo.get_build_by_id(build_id)
-    return render_template('singlePC.html', pc=build)
+    return render_template('singlePC.html', pc=build, cart = cart, user = current_user)
