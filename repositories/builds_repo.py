@@ -50,10 +50,10 @@ def get_user_by_id(user_id: int):
     with pool.connection() as conn:
         with conn.cursor(row_factory=dict_row) as cursor:
             cursor.execute('''
-                            SELECT user_id, email, username, hashed_password, is_admin
+                            SELECT user_id, username, hashed_password, is_admin
                             FROM users
                             WHERE user_id = %s
-                           ''', [user_id])
+                            ''', [user_id])
             return cursor.fetchone()
 
 def get_part_by_id(part_id: int) -> dict:
@@ -64,7 +64,7 @@ def get_part_by_id(part_id: int) -> dict:
                             SELECT *
                             FROM parts
                             WHERE part_id = %s
-                           ''', [part_id])
+                            ''', [part_id])
             return cursor.fetchone()
         
 def get_build_by_id(build_id: int) -> dict:
@@ -174,6 +174,23 @@ def create_user(username: str, hashed_password: str, is_admin: bool = False):
                 'user_id': user_id,
                 'username': username
             }
+
+def get_user_by_username(username: str)-> None:
+    pool = get_pool()
+    with pool.connection() as conn:
+        with conn.cursor(row_factory=dict_row) as cursor:
+            cursor.execute('''
+                            SELECT
+                                user_id,
+                                username,
+                                hashed_password
+                            FROM
+                                users
+                            WHERE username = %s
+                            ''', [username])
+            user = cursor.fetchone()
+            return user
+
 
 def create_build(parts: dict, build_name: str, is_private: bool, user_id: int):
     build_timestamp = datetime.now()

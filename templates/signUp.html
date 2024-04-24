@@ -4,7 +4,8 @@
 {% block head %}
 <link href="{{ url_for('static', filename='boxicons.min.css') }}" rel="stylesheet">
 <link rel="stylesheet" href="{{ url_for('static', filename='signLog.css') }}">
-<script src="{{ url_for('static', filename='signLog.js') }}"></script>
+<link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+
 {% endblock%}
 {% block body %}
 <body>
@@ -27,6 +28,7 @@
                 <div class="field input-field">
                     <input type="password" placeholder="Confirm password" class="password" required>
                     <label for="password"></label>
+                    <i class='bx bx-hide eye-icon'></i>
                 </div>
 
                 <div class="field button-field">
@@ -35,7 +37,7 @@
             </form>
 
             <div class="form-link">
-                <span>Already have an account? <a href="{{url_for('showLogin')}}" class="link login-link">Login</a></span>
+                <span>Already have an account? <a href="{{ url_for('showLogin') }}">Login</a></span>
             </div>
         </div>
 
@@ -56,5 +58,5 @@
         </div>
     </div>
 </body>
-
+<script src="{{ url_for('static', filename='signLog.js') }}"></script>
 {% endblock %}
