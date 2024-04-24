@@ -173,7 +173,8 @@ def logout():
     user_id = session.get('user_id')
     if user_id is not None:
         del session['user_id']
-
+        global cart
+        cart = []
     return redirect('/')
 
 @app.route('/show_saves')

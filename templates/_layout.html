@@ -40,9 +40,11 @@
           {% endif %}
         </ul>
         <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+          {% if cart  %}
           <li class="nav-item">
             <a class="nav-link{% if search_active %} active{% endif %}" href="/cart">Cart <i class="bi bi-cart">{% if cart %} {{ cart|length }}{% endif %}</i></a>
           </li>
+          {% endif %}
           <!-- LogOut -->
             {% if user %}
             <li class="nav-item">
