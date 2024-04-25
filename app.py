@@ -15,7 +15,6 @@ bcrypt = Bcrypt(app)
 
 cart = []
 
-
 @app.get('/')
 def index():
     user_id = session.get('user_id')
@@ -139,6 +138,9 @@ def create_build():
     build_id = builds_repo.create_build(cart, 'gaming', build_name,False, user_id)
     builds_repo.save_build(build_id, session['user_id'])
     return redirect(request.referrer or url_for('index'))
+
+@app.route('callback')
+def callback():
 
 @app.get('/signUp')
 def showSignUp():
