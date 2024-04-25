@@ -12,7 +12,7 @@
                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
             </svg>
         </button>
-        <input type="text" class="form-control" name="q" id="q" placeholder="Search for part" value="{%if query%}{{query}}{%endif%}" aria-label="Search for part">
+        <input type="text" class="form-control" name="q" id="q" placeholder="Search for part name" value="{%if query%}{{query}}{%endif%}" aria-label="Search for part">
         <div class="input-group-append">
             <select class="form-select" name="sh" id="sh" aria-label="Default select example">
                 <option {%if search_by == 'component' %}selected{%endif%} value='component'>Search by component</option>
@@ -21,7 +21,7 @@
         </div>
         <div class="input-group-append">
             <select class="form-select" name="st" id="st" aria-label="Default select example">
-                <option {%if sort_by == 'price' %}selected{%endif%}  value="price">Sort by price</option>
+                <option {%if sort_by == 'price' %}selected{%endif%}  value="price">Sort by price (Low to High)</option>
                 <option {%if sort_by == 'rating' %}selected{%endif%}  value="rating">Sort by rating</option>
                 <option {%if sort_by == 'nameAZ' %}selected{%endif%}  value="nameAZ">Sort by name (A-Z)</option>
                 <option {%if sort_by == 'nameZA' %}selected{%endif%}  value="nameZA">Sort by name (Z-A)</option>
@@ -41,22 +41,22 @@
                   <a class="nav-link {%if part_type == 'cpu'%}border fw-bold text-success{%endif%}" href="{{ url_for('showStartBuild', part_type='cpu') }}">CPU</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link {%if part_type == 'storage'%}fw-bold text-success{%endif%}" href="{{ url_for('showStartBuild', part_type='storage') }}">Storage</a>
+                  <a class="nav-link {%if part_type == 'storage'%}border fw-bold text-success{%endif%}" href="{{ url_for('showStartBuild', part_type='storage') }}">Storage</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link {%if part_type == 'power'%}fw-bold text-success{%endif%}" href="{{ url_for('showStartBuild', part_type='power') }}">Power Supply</a>
+                  <a class="nav-link {%if part_type == 'power'%}border fw-bold text-success{%endif%}" href="{{ url_for('showStartBuild', part_type='power') }}">Power Supply</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link {%if part_type == 'graphics'%}fw-bold text-success{%endif%}" href="{{ url_for('showStartBuild', part_type='graphics') }}">Graphics/Video Card</a>
+                <a class="nav-link {%if part_type == 'graphics'%}border fw-bold text-success{%endif%}" href="{{ url_for('showStartBuild', part_type='graphics') }}">Graphics/Video Card</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link {%if part_type == 'cooling'%}fw-bold text-success{%endif%}" href="{{ url_for('showStartBuild', part_type='cooling') }}">Cooling</a>
+                <a class="nav-link {%if part_type == 'cooling'%}border fw-bold text-success{%endif%}" href="{{ url_for('showStartBuild', part_type='cooling') }}">Cooling</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link {%if part_type == 'memory'%}fw-bold text-success{%endif%}" href="{{ url_for('showStartBuild', part_type='memory') }}">Memory Card</a>
+                <a class="nav-link {%if part_type == 'memory'%}border fw-bold text-success{%endif%}" href="{{ url_for('showStartBuild', part_type='memory') }}">Memory Card</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link {%if part_type == 'casing'%}fw-bold text-success{%endif%}" href="{{ url_for('showStartBuild', part_type='casing') }}">PC Casing</a>
+                <a class="nav-link {%if part_type == 'casing'%}border fw-bold text-success{%endif%}" href="{{ url_for('showStartBuild', part_type='casing') }}">PC Casing</a>
               </li>
           </ul>
       </div>
@@ -65,7 +65,7 @@
           <div class="row">
               {% for comp in data %}
                   <div class="col-md-4">
-                      <div class="card mb-3" style="width: 18rem;">
+                      <div class="card mb-3" style="width: 17rem;">
                           <!--<img src="{{ comp['image_url'] }}" class="card-img-top" alt="{{ comp['part_name'] }}" style="width: 18rem; height: 180px;">-->
                           <div class="card-body">
                               <h5 class="card-title">{{ comp['part_name'] }}</h5>
@@ -76,11 +76,11 @@
                                   <div>
                                     <form action="/add_to_cart" method="POST">
                                         <input type="hidden" name="part_id" value="{{ comp['part_id'] }}">
-                                        <button type="submit" class="btn btn-primary btn-lg" style="width: 120px;">Add</button>
+                                        <button type="submit" class="btn btn-primary btn-lg" style="width: 110px;">Add</button>
                                     </form>
                                   </div>
                                   <div>
-                                      <a class="btn btn-secondary btn-lg" href="/parts/{{comp['part_id']}}" style="width: 120px;">View</a>
+                                      <a class="btn btn-secondary btn-lg" href="/parts/{{comp['part_id']}}" style="width: 110px;">View</a>
                                   </div>
                               </div>
                           </div>

@@ -5,57 +5,61 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='homepage.css') }}">
 {% endblock%}
 {% block body %}
-  <body>
-      
-      <header>
-        <h1 style="color: #333; font-size: 48px; text-shadow: 2px 2px 4px #aaa;">Welcome to <span style="color: #FF4500;">Parts Complier</span>!</h1>
-      </header>
-  <main>
-      <!-- Custom Builder -->
-      <div class="imgbox1">
-          <div class="imginbox"><a href="\startBuild">
-              <img src="static\buildingPCImage.png"></a></div>
-          <div class="imgboxbody">
-              <p>
-              Start Building<br>
-              Create a custom PC for your needs.
-              </p>
-          </div>
-      </div>
-      
-      <!-- Prebuilts -->
-      <div class="imgbox1">
-          <div class="imginbox"> <a href="\preBuilts">
-              <img src="static\prebuilt.webp" alt="prebuilt-pc"></a></div>
-          <div class="imgboxbody">
-              <p>
-              Prebuilts<br>
-              Browse prebuilt computers.
-              </p>
-          </div>
-      </div>
-  
-      <!-- Browse PCs -->
-      <div class="imgbox1">
-          <div class="imginbox"> <a href="\browse">
-              <img src="static\listings2.jpg" alt="prebuilt-pc"></a></div>
-          <div class="imgboxbody">
-              <p>
-              Browse Listings<br>
-              Browse computers up for sale from other users.
-              </p>
-          </div>
-      </div>
-  
-  </main>
-      
-  
-  <footer id="footer" style="width: 100%; background-color: #333; padding: 20px; position: fixed; bottom: 0; left: 0;">
-    <p>&copy; PC Builders</p>
-</footer>
+<body>
 
-  
-  </body>
-  </html>
+    <header>
+        <h1 style="color: #333; font-size: 48px; text-shadow: 2px 2px 4px #aaa;">Welcome to 
+            <span style="color: #FF4500;">Parts Complier
+                {% if user is not none %}, {{ user['username'] }}{% endif %}</span>!</h1>
+    </header>
+    <main>
+        <!-- Custom Builder -->
+        <div class="imgbox1">
+            <div class="imginbox"><a href="{{ url_for('showStartBuild', part_type='motherboard') }}">
+                    <img src="static\buildingPCImage.png"></a></div>
+            <div class="imgboxbody">
+                <p>
+                    Start Building<br>
+                    Create a custom PC for your needs.
+                </p>
+            </div>
+        </div>
+
+        <!-- Prebuilts -->
+        <div class="imgbox1">
+            <div class="imginbox"> <a href="\preBuilts">
+                    <img src="static\prebuilt.webp" alt="prebuilt-pc"></a></div>
+            <div class="imgboxbody">
+                <p>
+                    Prebuilts<br>
+                    Browse prebuilt computers.
+                </p>
+            </div>
+        </div>
+
+        <!-- Browse PCs -->
+        <div class="imgbox1">
+            <div class="imginbox"> <a href="\browse">
+                    <img src="static\listings2.jpg" alt="prebuilt-pc"></a></div>
+            <div class="imgboxbody">
+                <p>
+                    Browse Listings<br>
+                    Browse computers up for sale from other users.
+                </p>
+            </div>
+        </div>
+
+    </main>
+
+
+    <footer id="footer"
+        style="width: 100%; background-color: #333; padding: 20px; position: fixed; bottom: 0; left: 0;">
+        <p>&copy; PC Builders</p>
+    </footer>
+
+
+</body>
+
+</html>
 
 {% endblock %}

@@ -1,3 +1,11 @@
+:root {
+    --color-1: #FEFCFD;
+    --color-2: #332c2cee;
+    --color-3: #28AFB0;
+    --color-4: #D7907B;
+    --color-5: #EF6F6C;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -100,6 +108,9 @@ form {
 
 .field button:hover {
     background-color: #016dcb;
+    box-shadow: 10px 10px 0px var(--color-3);
+    top: 5px;
+    left: -5px;
 }
 
 .form-link {
