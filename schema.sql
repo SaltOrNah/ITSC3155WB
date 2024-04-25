@@ -81,6 +81,9 @@ INSERT INTO parts (part_name, part_type, part_image, part_url, brand, price, rat
 ('Power Supply 1', 'power', 'power_image_1.jpg', 'https://example.com/power1', 'Brand D', 80.00, 4.7),
 ('Graphics Card 1', 'graphics', 'graphics_image_1.jpg', 'https://example.com/graphics1', 'Brand E', 400.00, 4.9),
 ('Cooling 1', 'cooling', 'cooling_image_1.jpg', 'https://example.com/cooling1', 'Brand F', 50.00, 4.4),
+('Cooling 2', 'cooling', 'cooling_image_2.jpg', 'https://example.com/cooling2', 'Brand A', 100.00, 5.0),
+('Mega Cooling 1 Super Ultra Mega Ultra Coolant Cools So Much Wow!', 'cooling', 'cooling_image_3.jpg', 'https://example.com/cooling3', 'Brand C', 64.49, 4.5),
+('ARCTIC Liquid Freezer III 56.3 CFM Liquid CPU Cooler', 'cooling', 'cooling_image_4.jpg', 'https://example.com/cooling4', 'Brand D', 94.99, 4.2),
 ('Memory 1', 'memory', 'memory_image_1.jpg', 'https://example.com/memory1', 'Brand G', 120.00, 4.6),
 ('Casing 1', 'casing', 'casing_image_1.jpg', 'https://example.com/casing1', 'Brand H', 70.00, 4.2);
 
