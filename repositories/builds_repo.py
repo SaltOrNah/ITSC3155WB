@@ -192,21 +192,41 @@ def get_user_by_username(username: str)-> None:
             return user
 
 
-def create_build(parts: dict, build_name: str, is_private: bool, user_id: int):
+def create_build(parts: dict, build_type: str, build_name: str, is_private: bool, user_id: int):
     build_timestamp = datetime.now()
     pool = get_pool()
     with pool.connection() as conn:
         with conn.cursor() as cursor:
             cursor.execute('''
-                            INSERT INTO builds (build_name, build_timestamp, is_private, user_id) 
-                            VALUES (%(build_name)s, %(build_timestamp)s, %(is_private)s, %(user_id)s)
+                            INSERT INTO builds (build_name, build_type, build_timestamp, is_private, user_id) 
+                            VALUES (%(build_name)s, %(build_type)s, %(build_timestamp)s, %(is_private)s, %(user_id)s)
                             RETURNING build_id
-                           ''', {'build_name': build_name, 'build_timestamp': build_timestamp, 'is_private': is_private, 'user_id': user_id})
+                           ''', {'build_name': build_name, 'build_type': build_type, 'build_timestamp': build_timestamp, 'is_private': is_private, 'user_id': user_id})
             res = cursor.fetchone()
             if not res:
                 raise Exception('Failed to create build')
-            return res[0]
-    
+            temp_list = []
+            build_id = res[0]
+            for part in parts:
+                part_id = part['part_id']
+                temp_list.append(part_id)
+                amount = temp_list.count(part_id)
+                print(temp_list)
+                print(amount)
+                if amount > 1:
+                    cursor.execute('''
+                                    UPDATE components
+                                    SET quantity = %(amount)s
+                                    WHERE part_id = %(part_id)s
+                                   ''', {'amount': amount, 'part_id': part_id})
+                else:
+                    cursor.execute('''
+                                    INSERT INTO components (part_id, build_id, quantity) 
+                                    VALUES (%(part_id)s, %(build_id)s, %(quantity)s)
+                                   ''', {'part_id': part_id, 'build_id': build_id, 'quantity': 1})
+            del temp_list
+            return build_id
+
 def save_build(build_id: int, user_id: int):
     pool = get_pool()
     with pool.connection() as conn:
