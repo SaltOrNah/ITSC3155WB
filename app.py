@@ -212,5 +212,10 @@ def remove_save():
     #grab the item to be added
     build_id = request.form['build_id']
     if build_id is not None:
-        builds_repo.remove_saved_build(build_id, session['user_id'])
+        builds_repo.remove_saved_build(build_id, current_user['user_id'])
     return redirect(request.referrer or url_for('index'))
+
+@app.get('/singlePC/<int:build_id>')
+def get_build(build_id):
+    build = builds_repo.get_build_by_id(build_id)
+    return render_template('singlePC.html', pc=build, cart = cart, user = current_user)
