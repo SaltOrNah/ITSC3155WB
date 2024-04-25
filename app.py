@@ -211,11 +211,16 @@ def save_build():
 def remove_save():
     #grab the item to be added
     build_id = request.form['build_id']
-    if build_id is not None:
-        builds_repo.remove_saved_build(build_id, current_user['user_id'])
+    user_id = session.get('user_id')
+    if build_id is not None and user_id is not None:
+        builds_repo.remove_saved_build(build_id, user_id)
     return redirect(request.referrer or url_for('index'))
 
 @app.get('/singlePC/<int:build_id>')
 def get_build(build_id):
     build = builds_repo.get_build_by_id(build_id)
-    return render_template('singlePC.html', pc=build, cart = cart, user = current_user)
+    user_id = session.get('user_id')
+    user = None
+    if user_id:
+        user = builds_repo.get_user_by_id(user_id)
+    return render_template('singlePC.html', pc=build, cart = cart, user = user)
