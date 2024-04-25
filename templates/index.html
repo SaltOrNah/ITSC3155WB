@@ -5,7 +5,6 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='homepage.css') }}">
 {% endblock%}
 {% block body %}
-
 <body>
 
     <header>
@@ -16,7 +15,7 @@
     <main>
         <!-- Custom Builder -->
         <div class="imgbox1">
-            <div class="imginbox"><a href="\startBuild">
+            <div class="imginbox"><a href="{{ url_for('showStartBuild', part_type='motherboard') }}">
                     <img src="static\buildingPCImage.png"></a></div>
             <div class="imgboxbody">
                 <p>
