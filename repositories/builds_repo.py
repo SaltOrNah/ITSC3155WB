@@ -208,21 +208,22 @@ def create_build(parts: dict, build_type: str, build_name: str, is_private: bool
             temp_list = []
             build_id = res[0]
             for part in parts:
-                id = part['part_id']
-                temp_list.append(id)
-                amount_of_part = temp_list.count(id)
-                if amount_of_part > 1:
+                part_id = part['part_id']
+                temp_list.append(part_id)
+                amount = temp_list.count(part_id)
+                print(temp_list)
+                print(amount)
+                if amount > 1:
                     cursor.execute('''
                                     UPDATE components
-                                    SET quantity = %{quantity}s
-                                    WHERE part_id = %{build_id}s
-                                   ''', {'quantity': amount_of_part, 'build_id': build_id})
-                    cursor.wait()
-                del amount_of_part
-                cursor.execute('''
-                                INSERT INTO components (part_id, build_id, quantity) 
-                                VALUES (%(part_id)s, %(build_id)s, %(quantity)s)
-                               ''', {'part_id': id, 'build_id': build_id, 'quantity': 1})
+                                    SET quantity = %(amount)s
+                                    WHERE part_id = %(part_id)s
+                                   ''', {'amount': amount, 'part_id': part_id})
+                else:
+                    cursor.execute('''
+                                    INSERT INTO components (part_id, build_id, quantity) 
+                                    VALUES (%(part_id)s, %(build_id)s, %(quantity)s)
+                                   ''', {'part_id': part_id, 'build_id': build_id, 'quantity': 1})
             del temp_list
             return build_id
 
