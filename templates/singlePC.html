@@ -2,14 +2,52 @@
 
 {% block title %}Single PC Page{% endblock %}
 {% block body %}
-<h3 class="mt-4">Single PC Details</h3>
-<ul>
-    <br>
-    <li>Build Name - {{ pc['build_name'] }}</li>
-    <br>
-    <li>Build Type - {{ pc['build_type'] }}</li>
-    <br>
-    <li>Build Rating - {{ pc['build_rating'] }}</li>
-    <br>
-</ul>
+<div class="row">
+    <div class="col-md-8">
+        <h5 class="card-title">{{ pc['build_name'] }}</h5>
+        <p class="card-text">Estimate: ${{ estimate }}</p>
+        <p class="card-text">Type: {{ pc['build_type'] }}</p>
+        <p class="card-text">
+            {% if pc['build_rating'] != -1 %}
+                Rating: {{ pc['build_rating'] }}
+            {% else %}
+                Rating: No Rating
+            {% endif %}
+        </p>
+    </div>
+    <div class="col-md-4">
+        <img src="{{ pc['build_image']}}" class="img-fluid" alt="{{ pc['build_name'] }}" style="max-height: 300px;">
+    </div>
+</div>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+            <th scope="col">Item Type</th>
+            <th scope="col">Name</th>
+            <th scope="col">Item Link</th>
+            <th scope="col">Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in parts %}
+            <tr>
+            <td>{{ item['part_type'] }}</td>
+            <td>{{ item['part_name'] }}</td>
+            <td><a href="{{ item['part_url'] }}">Link</a></td>
+            <td>${{ item['price'] }}</td>
+            <td>
+                <a class="btn btn-secondary" href="/parts/{{item['part_id']}}">View</a>
+            </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% if pc['user_id'] == user %}
+    <form action="/delete_build" method="POST">
+        <input type="hidden" name="build_id" value="{{ pc['build_id'] }}">
+        <button type="submit" class="btn btn-danger btn-lg">Remove Build</button>
+    </form>
+    {% endif %}
+</div>
 {% endblock %}
