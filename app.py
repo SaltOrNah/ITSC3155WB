@@ -214,8 +214,28 @@ def save_build():
 
 @app.post('/remove_save')
 def remove_save():
-    #grab the item to be added
+    #grab the build to be unsaved
+    build_id = request.form['build_id']
+    user_id = session.get('user_id')
+    if build_id is not None and user_id is not None:
+        builds_repo.remove_saved_build(build_id, user_id)
+    return redirect(request.referrer or url_for('index'))
+
+@app.get('/singlePC/<int:build_id>')
+def get_build(build_id):
+    build = builds_repo.get_build_by_id(build_id)
+    parts = builds_repo.get_all_parts_by_build_id(build_id)
+    estimate = builds_repo.get_total_build_price(build['build_name'])['sum']
+    user_id = session.get('user_id')
+    user = None
+    if user_id:
+        user = builds_repo.get_user_by_id(user_id)
+    return render_template('singlePC.html', pc=build, parts = parts, estimate = estimate, cart = cart, user = user)
+
+@app.post('/delete_build')
+def delete_build():
+    #grab the build to be removed
     build_id = request.form['build_id']
     if build_id is not None:
-        builds_repo.remove_saved_build(build_id, session['user_id'])
-    return redirect(request.referrer or url_for('index'))
+        builds_repo.delete_build_by_id(build_id)
+    return redirect('/preBuilts')

@@ -152,7 +152,7 @@ def get_total_build_price(build_name: str) -> bool:
         with conn.cursor(row_factory=dict_row) as cursor:
             cursor.execute('''
                             SELECT SUM(price)
-                            FROM components a JOIN parts b ON a.part_id = b.part_id JOIN build c ON c.build_id = a.build_id 
+                            FROM components a JOIN parts b ON a.part_id = b.part_id JOIN builds c ON c.build_id = a.build_id 
                             WHERE build_name = %s
                            ''', [build_name])
             total_price = cursor.fetchone()
@@ -248,4 +248,37 @@ def remove_saved_build(build_id: int, user_id: int):
                             DELETE FROM user_builds
                             WHERE user_id = %(user_id)s AND build_id = %(build_id)s;
                            ''', {'build_id': build_id, 'user_id': user_id})
+            conn.commit()
+
+def get_all_parts_by_build_id(build_id: int):
+    pool = get_pool()
+    with pool.connection() as conn:
+        with conn.cursor(row_factory=dict_row) as cursor:
+            cursor.execute('''
+                            SELECT p.*
+                            FROM components c
+                            JOIN parts p ON c.part_id = p.part_id
+                            WHERE c.build_id = %s
+                           ''', [build_id])
+            return cursor.fetchall()
+        
+def delete_build_by_id(build_id: int):
+    pool = get_pool()
+    with pool.connection() as conn:
+        with conn.cursor() as cursor:
+            # Delete associated user-build records first
+            cursor.execute('''
+                            DELETE FROM user_builds
+                            WHERE build_id = %s
+                           ''', [build_id])
+            # Delete associated components first
+            cursor.execute('''
+                            DELETE FROM components
+                            WHERE build_id = %s
+                           ''', [build_id])
+            # Then delete the build
+            cursor.execute('''
+                            DELETE FROM builds
+                            WHERE build_id = %s
+                           ''', [build_id])
             conn.commit()

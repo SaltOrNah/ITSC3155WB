@@ -49,7 +49,7 @@
                                     <div>
                                         <form action="/view_action" method="POST">
                                             <input type="hidden" name="build_id" value="{{ pc['build_id'] }}">
-                                            <button type="submit" class="btn btn-secondary btn-lg" style="width: 120px;">View</button>
+                                            <a class="btn btn-secondary btn-lg" href="/singlePC/{{pc['build_id']}}" style="width: 120px;">View</a>
                                         </form>
                                     </div>
                                 </div>
