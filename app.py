@@ -37,7 +37,6 @@ def google():
 
     # Redirect to google_auth function
     redirect_uri = url_for('google_auth', _external=True)
-    print(redirect_uri)
     session['nonce'] = generate_token()
     return oauth.google.authorize_redirect(redirect_uri, nonce=session['nonce'])
 
@@ -52,7 +51,6 @@ def google_auth():
         builds_repo.create_user(user['name'], session['nonce'])
         user = builds_repo.get_user_by_username(user['name'])
         session['user_id']=user['user_id']
-    print(" Google User ", session)
     return redirect('/')
 
 @app.get('/')
@@ -217,7 +215,7 @@ def login():
 
 @app.get('/login')
 def showLogin():
-    print(session)
+
     if session:
         return redirect(url_for('index'))
     return render_template('login.html', cart = cart, user = None)
