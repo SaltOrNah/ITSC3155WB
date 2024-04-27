@@ -227,7 +227,8 @@ def logout():
         del session['user_id']
         global cart
         cart = []
-    if session['nonce']:
+    if session:
+        session['nonce']
         del session['nonce']
     return redirect('/')
 
