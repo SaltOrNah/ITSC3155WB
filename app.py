@@ -1,17 +1,57 @@
+import os
 from flask import Flask, abort, redirect, render_template, request, url_for, session
 from repositories import builds_repo
 from dotenv import load_dotenv
 from flask_bcrypt import Bcrypt
+from authlib.integrations.flask_client import OAuth # type: ignore
+from authlib.common.security import generate_token # type: ignore
 load_dotenv()
 
 app = Flask(__name__)
 
-app.secret_key = 'secret_wah'
+app.secret_key = os.urandom(12)
+
+oauth = OAuth(app)
 
 bcrypt = Bcrypt(app)
 
 cart = []
 
+@app.route('/google/')
+def google():
+
+    GOOGLE_CLIENT_ID = os.getenv('client_id')
+    GOOGLE_CLIENT_SECRET = os.getenv('client_secret')
+
+    CONF_URL = 'https://accounts.google.com/.well-known/openid-configuration'
+    oauth.register(
+        name='google',
+        client_id=GOOGLE_CLIENT_ID,
+        client_secret=GOOGLE_CLIENT_SECRET,
+        server_metadata_url=CONF_URL,
+        redirect_uri= 'http://127.0.0.1:5000/google/auth/',
+        client_kwargs={
+            'scope': 'openid email profile'
+        }
+    )
+
+    # Redirect to google_auth function
+    redirect_uri = url_for('google_auth', _external=True)
+    session['nonce'] = generate_token()
+    return oauth.google.authorize_redirect(redirect_uri, nonce=session['nonce'])
+
+@app.route('/google/auth/')
+def google_auth():
+    token = oauth.google.authorize_access_token()
+    user = oauth.google.parse_id_token(token, nonce=session['nonce'])
+    if builds_repo.does_username_exist(user['name']):
+        user = builds_repo.get_user_by_username(user['name'])
+        session['user_id']=user['user_id']
+    else:
+        builds_repo.create_user(user['name'], session['nonce'])
+        user = builds_repo.get_user_by_username(user['name'])
+        session['user_id']=user['user_id']
+    return redirect('/')
 
 @app.get('/')
 def index():
@@ -137,18 +177,17 @@ def create_build():
     builds_repo.save_build(build_id, session['user_id'])
     return redirect(request.referrer or url_for('index'))
 
+
 @app.get('/signUp')
 def showSignUp():
     if session:
         return redirect(url_for('index'))
-    return render_template('signUp.html', cart = cart)
+    return render_template('signUp.html', cart = cart, user = None)
 
 @app.post('/signUp')
 def createUser():
     username = request.form.get('username')
     password = request.form.get('password')
-    print(username)
-    print(password)
     if not username or not password:
         abort(400)
     does_username_exist = builds_repo.does_username_exist(username)
@@ -176,9 +215,10 @@ def login():
 
 @app.get('/login')
 def showLogin():
+
     if session:
         return redirect(url_for('index'))
-    return render_template('login.html', cart = cart)
+    return render_template('login.html', cart = cart, user = None)
 
 @app.post('/')
 def logout():
@@ -187,16 +227,18 @@ def logout():
         del session['user_id']
         global cart
         cart = []
+    if session['nonce']:
+        del session['nonce']
     return redirect('/')
 
 @app.route('/show_saves')
 def show_saves():
+    if 'user_id' not in session:
+        return redirect(url_for('showSignUp'))
     #temporary data for testing.
     image_url = 'https://ralfvanveen.com/wp-content/uploads//2021/06/Placeholder-_-Begrippenlijst.svg'
     data = builds_repo.get_all_saves_from_user_id(session['user_id'])
     #Pass the data to be shown on the cards
-    if 'user_id' not in session:
-        return redirect(url_for('showSignUp'))
     return render_template('savedBuilds.html', data=data, cart = cart, user = session['user_id'])
 
 @app.post('/save_build')
