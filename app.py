@@ -3,7 +3,6 @@ from flask import Flask, abort, redirect, render_template, request, url_for, ses
 from repositories import builds_repo
 from dotenv import load_dotenv
 from flask_bcrypt import Bcrypt
-from google_secrets import client_id, client_secret
 from authlib.integrations.flask_client import OAuth # type: ignore
 from authlib.common.security import generate_token # type: ignore
 load_dotenv()
@@ -21,8 +20,8 @@ cart = []
 @app.route('/google/')
 def google():
 
-    GOOGLE_CLIENT_ID = client_id
-    GOOGLE_CLIENT_SECRET = client_secret
+    GOOGLE_CLIENT_ID = os.getenv('client_id')
+    GOOGLE_CLIENT_SECRET = os.getenv('client_secret')
 
     CONF_URL = 'https://accounts.google.com/.well-known/openid-configuration'
     oauth.register(
