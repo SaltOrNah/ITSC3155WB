@@ -29,7 +29,7 @@ def google():
         client_id=GOOGLE_CLIENT_ID,
         client_secret=GOOGLE_CLIENT_SECRET,
         server_metadata_url=CONF_URL,
-        redirect_uri='http://localhost:5000/google/auth/',
+        redirect_uri= 'http://127.0.0.1:5000/google/auth/',
         client_kwargs={
             'scope': 'openid email profile'
         }
@@ -45,8 +45,14 @@ def google():
 def google_auth():
     token = oauth.google.authorize_access_token()
     user = oauth.google.parse_id_token(token, nonce=session['nonce'])
-    session['user_id'] = user
-    print(" Google User ", user)
+    if builds_repo.does_username_exist(user['name']):
+        user = builds_repo.get_user_by_username(user['name'])
+        session['user_id']=user['user_id']
+    else:
+        builds_repo.create_user(user['name'], session['nonce'])
+        user = builds_repo.get_user_by_username(user['name'])
+        session['user_id']=user['user_id']
+    print(" Google User ", session)
     return redirect('/')
 
 @app.get('/')
@@ -178,14 +184,12 @@ def create_build():
 def showSignUp():
     if session:
         return redirect(url_for('index'))
-    return render_template('signUp.html', cart = cart)
+    return render_template('signUp.html', cart = cart, user = None)
 
 @app.post('/signUp')
 def createUser():
     username = request.form.get('username')
     password = request.form.get('password')
-    print(username)
-    print(password)
     if not username or not password:
         abort(400)
     does_username_exist = builds_repo.does_username_exist(username)
@@ -213,9 +217,10 @@ def login():
 
 @app.get('/login')
 def showLogin():
+    print(session)
     if session:
         return redirect(url_for('index'))
-    return render_template('login.html', cart = cart)
+    return render_template('login.html', cart = cart, user = None)
 
 @app.post('/')
 def logout():
@@ -224,16 +229,18 @@ def logout():
         del session['user_id']
         global cart
         cart = []
+    if session['nonce']:
+        del session['nonce']
     return redirect('/')
 
 @app.route('/show_saves')
 def show_saves():
+    if 'user_id' not in session:
+        return redirect(url_for('showSignUp'))
     #temporary data for testing.
     image_url = 'https://ralfvanveen.com/wp-content/uploads//2021/06/Placeholder-_-Begrippenlijst.svg'
     data = builds_repo.get_all_saves_from_user_id(session['user_id'])
     #Pass the data to be shown on the cards
-    if 'user_id' not in session:
-        return redirect(url_for('showSignUp'))
     return render_template('savedBuilds.html', data=data, cart = cart, user = session['user_id'])
 
 @app.post('/save_build')
