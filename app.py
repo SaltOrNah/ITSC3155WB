@@ -1,19 +1,54 @@
+import os
 from flask import Flask, abort, redirect, render_template, request, url_for, session
 from repositories import builds_repo
 from dotenv import load_dotenv
 from flask_bcrypt import Bcrypt
-from google.oauth2 import id_token
-from google_auth_oauthlib import flow
-import google.auth.transport.requests
+from google_secrets import client_id, client_secret
+from authlib.integrations.flask_client import OAuth # type: ignore
+from authlib.common.security import generate_token # type: ignore
 load_dotenv()
 
 app = Flask(__name__)
 
-app.secret_key = 'secret_wah'
+app.secret_key = os.urandom(12)
+
+oauth = OAuth(app)
 
 bcrypt = Bcrypt(app)
 
 cart = []
+
+@app.route('/google/')
+def google():
+
+    GOOGLE_CLIENT_ID = client_id
+    GOOGLE_CLIENT_SECRET = client_secret
+
+    CONF_URL = 'https://accounts.google.com/.well-known/openid-configuration'
+    oauth.register(
+        name='google',
+        client_id=GOOGLE_CLIENT_ID,
+        client_secret=GOOGLE_CLIENT_SECRET,
+        server_metadata_url=CONF_URL,
+        redirect_uri='http://localhost:5000/google/auth/',
+        client_kwargs={
+            'scope': 'openid email profile'
+        }
+    )
+
+    # Redirect to google_auth function
+    redirect_uri = url_for('google_auth', _external=True)
+    print(redirect_uri)
+    session['nonce'] = generate_token()
+    return oauth.google.authorize_redirect(redirect_uri, nonce=session['nonce'])
+
+@app.route('/google/auth/')
+def google_auth():
+    token = oauth.google.authorize_access_token()
+    user = oauth.google.parse_id_token(token, nonce=session['nonce'])
+    session['user_id'] = user
+    print(" Google User ", user)
+    return redirect('/')
 
 @app.get('/')
 def index():
@@ -139,8 +174,6 @@ def create_build():
     builds_repo.save_build(build_id, session['user_id'])
     return redirect(request.referrer or url_for('index'))
 
-@app.route('callback')
-def callback():
 
 @app.get('/signUp')
 def showSignUp():
