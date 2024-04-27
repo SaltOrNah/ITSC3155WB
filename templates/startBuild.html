@@ -2,6 +2,8 @@
 
 {% block title %}PC Building App{% endblock %}
 
+{% block head %}<link rel="stylesheet" href="{{ url_for('static', filename='buildpage.css') }}">{% endblock %}
+
 {% block body %}
 <div class="container">
 <!-- Search Bar -->
@@ -33,30 +35,30 @@
   <div class="row">
       <!-- Vertical Navigation -->
       <div class="col-md-3">
-          <ul class="nav flex-column border">
+          <ul class="nav flex-column border freeze">
               <li class="nav-item">
-                  <a class="nav-link {%if part_type == 'motherboard'%}border fw-bold text-success{%endif%}" href="{{ url_for('showStartBuild', part_type='motherboard') }}">Motherboard</a>
+                <a class="nav-link {%if part_type == 'motherboard'%}border .bg-light fw-bold text-success{%endif%}" href="{{ url_for('showStartBuild', part_type='motherboard') }}">Motherboard</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link {%if part_type == 'cpu'%}border fw-bold text-success{%endif%}" href="{{ url_for('showStartBuild', part_type='cpu') }}">CPU</a>
+                <a class="nav-link {%if part_type == 'cpu'%}border .bg-light fw-bold text-success{%endif%}" href="{{ url_for('showStartBuild', part_type='cpu') }}">CPU</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link {%if part_type == 'storage'%}border fw-bold text-success{%endif%}" href="{{ url_for('showStartBuild', part_type='storage') }}">Storage</a>
+                <a class="nav-link {%if part_type == 'storage'%}border .bg-light fw-bold text-success{%endif%}" href="{{ url_for('showStartBuild', part_type='storage') }}">Storage</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link {%if part_type == 'power'%}border fw-bold text-success{%endif%}" href="{{ url_for('showStartBuild', part_type='power') }}">Power Supply</a>
+                <a class="nav-link {%if part_type == 'power'%}border .bg-light fw-bold text-success{%endif%}" href="{{ url_for('showStartBuild', part_type='power') }}">Power Supply</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link {%if part_type == 'graphics'%}border fw-bold text-success{%endif%}" href="{{ url_for('showStartBuild', part_type='graphics') }}">Graphics/Video Card</a>
+                <a class="nav-link {%if part_type == 'graphics'%}border .bg-light fw-bold text-success{%endif%}" href="{{ url_for('showStartBuild', part_type='graphics') }}">Graphics/Video Card</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link {%if part_type == 'cooling'%}border fw-bold text-success{%endif%}" href="{{ url_for('showStartBuild', part_type='cooling') }}">Cooling</a>
+                <a class="nav-link {%if part_type == 'cooling'%}border .bg-light fw-bold text-success{%endif%}" href="{{ url_for('showStartBuild', part_type='cooling') }}">Cooling</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link {%if part_type == 'memory'%}border fw-bold text-success{%endif%}" href="{{ url_for('showStartBuild', part_type='memory') }}">Memory Card</a>
+                <a class="nav-link {%if part_type == 'memory'%}border .bg-light fw-bold text-success{%endif%}" href="{{ url_for('showStartBuild', part_type='memory') }}">Memory Card</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link {%if part_type == 'casing'%}border fw-bold text-success{%endif%}" href="{{ url_for('showStartBuild', part_type='casing') }}">PC Casing</a>
+                <a class="nav-link {%if part_type == 'casing'%}border .bg-light fw-bold text-success{%endif%}" href="{{ url_for('showStartBuild', part_type='casing') }}">PC Casing</a>
               </li>
           </ul>
       </div>
@@ -66,7 +68,7 @@
               {% for comp in data %}
                   <div class="col-md-4">
                       <div class="card mb-3" style="width: 17rem;">
-                          <!--<img src="{{ comp['image_url'] }}" class="card-img-top" alt="{{ comp['part_name'] }}" style="width: 18rem; height: 180px;">-->
+                          <img src="{{ comp['part_image'] }}" class="card-img-top" alt="{{ comp['part_name'] }}" style="width: 18rem; height: 180px;">
                           <div class="card-body">
                               <h5 class="card-title">{{ comp['part_name'] }}</h5>
                               <p class="card-text">Price: ${{ comp['price']}}</p>

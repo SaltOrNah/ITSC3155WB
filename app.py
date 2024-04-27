@@ -135,6 +135,7 @@ def create_build():
         return redirect(url_for('showCart'))
     build_id = builds_repo.create_build(cart, 'gaming', build_name,False, user_id)
     builds_repo.save_build(build_id, session['user_id'])
+    cart.clear()
     return redirect(request.referrer or url_for('index'))
 
 @app.get('/signUp')
@@ -193,6 +194,8 @@ def logout():
 def show_saves():
     #temporary data for testing.
     image_url = 'https://ralfvanveen.com/wp-content/uploads//2021/06/Placeholder-_-Begrippenlijst.svg'
+    if 'user_id' not in session:
+        return redirect(url_for('showSignUp'))
     data = builds_repo.get_all_saves_from_user_id(session['user_id'])
     #Pass the data to be shown on the cards
     if 'user_id' not in session:
@@ -203,6 +206,8 @@ def show_saves():
 def save_build():
     #grab the item to be added
     build_id = request.form['build_id']
+    if 'user_id' not in session:
+        return redirect(url_for('showLogin'))
     if build_id is not None:
         builds_repo.save_build(build_id, session['user_id'])
     return redirect(request.referrer or url_for('index'))
