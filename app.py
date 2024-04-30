@@ -89,6 +89,9 @@ def showPreBuilts():
     #temporary data for testing.
     image_url = 'https://ralfvanveen.com/wp-content/uploads//2021/06/Placeholder-_-Begrippenlijst.svg'
     data = builds_repo.get_all_builds_by_build_type(content)
+    for build in data:
+        if build['is_private']:
+            data.remove(build)
     #Pass the data to be shown on the cards
     return render_template('preBuilts.html', data=data, cart = cart, user = user)
 
@@ -131,9 +134,14 @@ def create_build():
     if user_id is None:
         return redirect(url_for('showLogin'))
     build_name = request.form.get('build_name')
+    build_type = request.form.get('build_type')
+    is_private = request.form.get('is_private')
+    build_image = request.form.get('build_image')
     if build_name is None or build_name == '':
         return redirect(url_for('showCart'))
-    build_id = builds_repo.create_build(cart, 'gaming', build_name,False, user_id)
+    if build_type not in ['gaming', 'work', 'school', 'recording'] or is_private is None or build_image is None:
+        return 'Bad Request', 400
+    build_id = builds_repo.create_build(cart, build_type, build_name, is_private, user_id)
     builds_repo.save_build(build_id, session['user_id'])
     cart.clear()
     return redirect(request.referrer or url_for('index'))
