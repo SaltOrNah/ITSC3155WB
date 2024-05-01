@@ -186,7 +186,7 @@ def create_build():
     build_id = builds_repo.create_build(cart, build_type, build_name, is_private, user_id)
     builds_repo.save_build(build_id, session['user_id'])
     cart.clear()
-    return redirect(request.referrer or url_for('index'))
+    return redirect(url_for('show_saves'))
 
 
 @app.get('/signUp')

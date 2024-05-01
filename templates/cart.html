@@ -2,6 +2,12 @@
 
 {% block title %}PC Building App{% endblock %}
 
+{% block head %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+{% endblock %}
+
 {% block body %}
     <div class="table-responsive">
         <table class="table table-striped">
@@ -42,8 +48,9 @@
             </tfoot>
         </table>
         <!-- Create Build -->
+        <div id="alert_placeholder"></div>
+        <form action="/create_build" id="create_build" method="post">
         {% if cart %}
-        <form action="/create_build" method="post">
             <div class = "form-group p-2">
                 <label for="build_name"><h5>Build name:</h5></label>
                 <input type="text" class="form-control" name="build_name" id="build_name" placeholder="Enter build name">
@@ -74,9 +81,26 @@
                     Save Build
                 </button>
             </div>
-            
-                
-        </form>
+            <script>
+                var alertPlaceholder = document.getElementById('alert_placeholder')
+                var form = document.getElementById('create_build')
+                console.log(form)
+                function alert(message, type) {
+                    var wrapper = document.createElement('div')
+                    wrapper.innerHTML = '<div class="alert alert-' + type + ' alert-dismissible" role="alert">' + message + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>'
+                    setInterval(function(){ $(".alert").fadeOut(); }, 3000);
+                    alertPlaceholder.append(wrapper)
+                }
+                if (form) {
+                    form.addEventListener('submit', function (e) {
+                        if(document.getElementById("build_name").value.trim() == ""){  
+                            e.preventDefault();
+                            alert('You need to enter a valid build name!', 'danger')
+                        }
+                    })
+                }
+            </script>
         {% endif %}
+        </form>
     </div>
 {% endblock %}
