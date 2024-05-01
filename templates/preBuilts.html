@@ -28,10 +28,9 @@
                 {% for pc in data %}
                     <div class="col-md-4">
                         <div class="card mb-3" style="width: 18rem;">
-                            <img src="{{ pc['image_url'] }}" class="card-img-top" alt="{{ pc['build_name'] }}" style="width: 18rem; height: 180px;">
+                            <img src="{{ pc['build_image'] }}" class="card-img-top" alt="{{ pc['build_name'] }}" style="width: 18rem; height: 180px;">
                             <div class="card-body">
                                 <h5 class="card-title" style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">{{ pc['build_name'] }}</h5>
-                                <p class="card-text">Price: $WIP</p>
                                 <p class="card-text">
                                     {% if pc['build_rating'] != -1 %}
                                         Rating: {{ pc['build_rating'] }}

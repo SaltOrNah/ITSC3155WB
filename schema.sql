@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS builds(
     build_name      VARCHAR(255)    NOT NULL,
     build_type      build_type      NOT NULL,
     build_rating    FLOAT           DEFAULT -1,
-    build_image     VARCHAR(255)    DEFAULT 'https://ralfvanveen.com/wp-content/uploads//2021/06/Placeholder-_-Begrippenlijst.svg',
+    build_image     VARCHAR(255)    NOT NULL,
     build_timestamp TIMESTAMP       NOT NULL,
     is_private      BOOLEAN         NOT NULL,
     user_id         INT             NOT NULL,
@@ -88,25 +88,25 @@ INSERT INTO parts (part_name, part_type, part_image, part_url, brand, price, rat
 ('Casing 1', 'casing', 'casing_image_1.jpg', 'https://example.com/casing1', 'Brand H', 70.00, 4.2);
 
 -- Inserting dummy data into the builds table
-INSERT INTO builds (build_name, build_timestamp, is_private, user_id, build_type, build_rating) VALUES
-('Mobile Gaming Setup', '2024-04-17 00:00:00', FALSE, 1, 'gaming', 5.0),
-('Esports Gaming PC', '2024-04-17 00:00:00', TRUE, 2, 'gaming', 4.9),
-('School Desktop', '2024-04-17 00:00:00', FALSE, 1, 'school', 4.5),
-('Family Gaming Console', '2024-04-17 00:00:00', FALSE, 2, 'gaming', 2.8),
-('High-Performance Gaming Workstation', '2024-04-17 00:00:00', FALSE, 1, 'gaming', 4.6),
-('Student Laptop', '2024-04-17 00:00:00', FALSE, 1, 'school', 1.7),
-('Gaming Laptop', '2024-04-17 00:00:00', FALSE, 2, 'gaming', 4.0),
-('Media Editing Rig', '2024-04-17 00:00:00', FALSE, 1, 'recording', 3.2),
-('Home Theater PC', '2024-04-17 00:00:00', FALSE, 2, 'recording', 3.9),
-('Data Analysis Workstation', '2024-04-17 00:00:00', FALSE, 1, 'work', 1.6),
-('Virtualization Server', '2024-04-17 00:00:00', FALSE, 2, 'recording', 2.0),
-('Audio Production Build', '2024-04-17 00:00:00', FALSE, 1, 'recording', 1.0),
-('CAD Workstation', '2024-04-17 00:00:00', FALSE, 2, 'work', 4.2),
-('Home Server', '2024-04-17 00:00:00', FALSE, 1, 'work', 4.4),
-('AI/Deep Learning Rig', '2024-04-17 00:00:00', TRUE, 2, 'work', 3.0),
-('Gaming PC', '2024-04-07 00:27:54.898471', FALSE, 1, 'gaming', 4.7),
-('Workstation', '2024-04-07 00:29:33.521232', FALSE, 2, 'work', 4.5),
-('Server Build', '2024-04-07 00:33:07.744844', TRUE, 1, 'work', 3.0);
+INSERT INTO builds (build_name, build_timestamp, is_private, user_id, build_type, build_rating, build_image) VALUES
+('Mobile Gaming Setup', '2024-04-17 00:00:00', FALSE, 1, 'gaming', 5.0, 'https://ralfvanveen.com/wp-content/uploads//2021/06/Placeholder-_-Begrippenlijst.svg'),
+('Esports Gaming PC', '2024-04-17 00:00:00', TRUE, 2, 'gaming', 4.9, 'https://ralfvanveen.com/wp-content/uploads//2021/06/Placeholder-_-Begrippenlijst.svg'),
+('School Desktop', '2024-04-17 00:00:00', FALSE, 1, 'school', 4.5, 'https://ralfvanveen.com/wp-content/uploads//2021/06/Placeholder-_-Begrippenlijst.svg'),
+('Family Gaming Console', '2024-04-17 00:00:00', FALSE, 2, 'gaming', 2.8, 'https://ralfvanveen.com/wp-content/uploads//2021/06/Placeholder-_-Begrippenlijst.svg'),
+('High-Performance Gaming Workstation', '2024-04-17 00:00:00', FALSE, 1, 'gaming', 4.6, 'https://ralfvanveen.com/wp-content/uploads//2021/06/Placeholder-_-Begrippenlijst.svg'),
+('Student Laptop', '2024-04-17 00:00:00', FALSE, 1, 'school', 1.7, 'https://ralfvanveen.com/wp-content/uploads//2021/06/Placeholder-_-Begrippenlijst.svg'),
+('Gaming Laptop', '2024-04-17 00:00:00', FALSE, 2, 'gaming', 4.0, 'https://ralfvanveen.com/wp-content/uploads//2021/06/Placeholder-_-Begrippenlijst.svg'),
+('Media Editing Rig', '2024-04-17 00:00:00', FALSE, 1, 'recording', 3.2, 'https://ralfvanveen.com/wp-content/uploads//2021/06/Placeholder-_-Begrippenlijst.svg'),
+('Home Theater PC', '2024-04-17 00:00:00', FALSE, 2, 'recording', 3.9, 'https://ralfvanveen.com/wp-content/uploads//2021/06/Placeholder-_-Begrippenlijst.svg'),
+('Data Analysis Workstation', '2024-04-17 00:00:00', FALSE, 1, 'work', 1.6, 'https://ralfvanveen.com/wp-content/uploads//2021/06/Placeholder-_-Begrippenlijst.svg'),
+('Virtualization Server', '2024-04-17 00:00:00', FALSE, 2, 'recording', 2.0, 'https://ralfvanveen.com/wp-content/uploads//2021/06/Placeholder-_-Begrippenlijst.svg'),
+('Audio Production Build', '2024-04-17 00:00:00', FALSE, 1, 'recording', 1.0, 'https://ralfvanveen.com/wp-content/uploads//2021/06/Placeholder-_-Begrippenlijst.svg'),
+('CAD Workstation', '2024-04-17 00:00:00', FALSE, 2, 'work', 4.2, 'https://ralfvanveen.com/wp-content/uploads//2021/06/Placeholder-_-Begrippenlijst.svg'),
+('Home Server', '2024-04-17 00:00:00', FALSE, 1, 'work', 4.4, 'https://ralfvanveen.com/wp-content/uploads//2021/06/Placeholder-_-Begrippenlijst.svg'),
+('AI/Deep Learning Rig', '2024-04-17 00:00:00', TRUE, 2, 'work', 3.0, 'https://ralfvanveen.com/wp-content/uploads//2021/06/Placeholder-_-Begrippenlijst.svg'),
+('Gaming PC', '2024-04-07 00:27:54.898471', FALSE, 1, 'gaming', 4.7, 'https://ralfvanveen.com/wp-content/uploads//2021/06/Placeholder-_-Begrippenlijst.svg'),
+('Workstation', '2024-04-07 00:29:33.521232', FALSE, 2, 'work', 4.5, 'https://ralfvanveen.com/wp-content/uploads//2021/06/Placeholder-_-Begrippenlijst.svg'),
+('Server Build', '2024-04-07 00:33:07.744844', TRUE, 1, 'work', 3.0, 'https://ralfvanveen.com/wp-content/uploads//2021/06/Placeholder-_-Begrippenlijst.svg');
 
 -- Inserting dummy data into the components table
 INSERT INTO components (part_id, build_id, quantity) VALUES
