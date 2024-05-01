@@ -119,7 +119,7 @@ def showFAQ():
     return render_template('faq.html', cart = cart, user = user)
 
 @app.route('/preBuilts')
-def showPreBuilts():
+def showPreBuilts(content = "gaming"):
     user_id = session.get('user_id')
     user = None
     if user_id:
@@ -133,7 +133,7 @@ def showPreBuilts():
         if build['is_private']:
             data.remove(build)
     #Pass the data to be shown on the cards
-    return render_template('preBuilts.html', data=data, cart = cart, user = user)
+    return render_template('preBuilts.html', data=data, cart=cart, user=user, content=content)
 
 @app.get('/cart')
 def showCart():
