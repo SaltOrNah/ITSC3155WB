@@ -211,8 +211,6 @@ def create_build(parts: dict, build_type: str, build_name: str, is_private: bool
                 part_id = part['part_id']
                 temp_list.append(part_id)
                 amount = temp_list.count(part_id)
-                print(temp_list)
-                print(amount)
                 if amount > 1:
                     cursor.execute('''
                                     UPDATE components

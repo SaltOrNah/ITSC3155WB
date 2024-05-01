@@ -177,9 +177,11 @@ def create_build():
     build_type = request.form.get('build_type')
     is_private = request.form.get('is_private')
     build_image = request.form.get('build_image')
+    if (is_private is None):
+        is_private = False
     if build_name is None or build_name == '':
         return redirect(url_for('showCart'))
-    if build_type not in ['gaming', 'work', 'school', 'recording'] or is_private is None or build_image is None:
+    if build_type not in ['gaming', 'work', 'school', 'recording'] or build_image is None:
         return 'Bad Request', 400
     build_id = builds_repo.create_build(cart, build_type, build_name, is_private, user_id)
     builds_repo.save_build(build_id, session['user_id'])
