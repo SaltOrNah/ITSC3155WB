@@ -192,16 +192,16 @@ def get_user_by_username(username: str)-> None:
             return user
 
 
-def create_build(parts: dict, build_type: str, build_name: str, is_private: bool, user_id: int):
+def create_build(parts: dict, build_type: str, build_name: str, is_private: bool, user_id: int, build_image: str = 'https://ralfvanveen.com/wp-content/uploads//2021/06/Placeholder-_-Begrippenlijst.svg'):
     build_timestamp = datetime.now()
     pool = get_pool()
     with pool.connection() as conn:
         with conn.cursor() as cursor:
             cursor.execute('''
-                            INSERT INTO builds (build_name, build_type, build_timestamp, is_private, user_id) 
-                            VALUES (%(build_name)s, %(build_type)s, %(build_timestamp)s, %(is_private)s, %(user_id)s)
+                            INSERT INTO builds (build_name, build_type, build_timestamp, is_private, user_id, build_image) 
+                            VALUES (%(build_name)s, %(build_type)s, %(build_timestamp)s, %(is_private)s, %(user_id)s, %(build_image)s)
                             RETURNING build_id
-                           ''', {'build_name': build_name, 'build_type': build_type, 'build_timestamp': build_timestamp, 'is_private': is_private, 'user_id': user_id})
+                           ''', {'build_name': build_name, 'build_type': build_type, 'build_timestamp': build_timestamp, 'is_private': is_private, 'user_id': user_id, 'build_image': build_image})
             res = cursor.fetchone()
             if not res:
                 raise Exception('Failed to create build')

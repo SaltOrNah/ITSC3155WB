@@ -183,7 +183,10 @@ def create_build():
         return redirect(url_for('showCart'))
     if build_type not in ['gaming', 'work', 'school', 'recording'] or build_image is None:
         return 'Bad Request', 400
-    build_id = builds_repo.create_build(cart, build_type, build_name, is_private, user_id)
+    if build_image != "":
+        build_id = builds_repo.create_build(cart, build_type, build_name, is_private, user_id, build_image)
+    else:
+        build_id = builds_repo.create_build(cart, build_type, build_name, is_private, user_id)
     builds_repo.save_build(build_id, session['user_id'])
     cart.clear()
     return redirect(url_for('show_saves'))
@@ -281,7 +284,7 @@ def get_build(build_id):
     estimate = builds_repo.get_total_build_price(build['build_name'])['sum']
     user_id = session.get('user_id')
     user = None
-    if user_id:
+    if user_id is not None:
         user = builds_repo.get_user_by_id(user_id)
     return render_template('singlePC.html', pc=build, parts = parts, estimate = estimate, cart = cart, user = user)
 
