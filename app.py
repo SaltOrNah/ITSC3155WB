@@ -179,7 +179,7 @@ def create_build():
     build_image = request.form.get('build_image')
     if (is_private is None):
         is_private = False
-    if build_name is None or build_name == '':
+    if build_name is None or build_name == '' or len(build_name) > 255:
         return redirect(url_for('showCart'))
     if build_type not in ['gaming', 'work', 'school', 'recording'] or build_image is None:
         return 'Bad Request', 400
