@@ -37,8 +37,7 @@ def google():
 
     # Redirect to google_auth function
     redirect_uri = url_for('google_auth', _external=True)
-    
-    return oauth.google.authorize_redirect(redirect_uri, nonce=session['nonce'])
+    return oauth.google.authorize_redirect(redirect_uri)
 
 @app.route('/google/auth/')
 def google_auth():
