@@ -13,13 +13,31 @@
                 {% if user is not none %}, {{ user['username'] }}{% endif %}</span>!</h1>
     </header>
     <main>
+        <!-- Go to Saves -->
+        {% if user is not none %}
+        <div class="imgbox1">
+            <div class="imginbox"> <a href="/show_saves">
+                    <img src="static\save.webp" alt="prebuilt-pc"></a></div>
+            <div class="imgboxbody">
+                <p class="h5">
+                    Saves
+                </p>
+                <p>
+                    Checkout the pcs you've built and saved.
+                </p>
+            </div>
+        </div>
+        {% endif %}
+
         <!-- Custom Builder -->
         <div class="imgbox1">
             <div class="imginbox"><a href="{{ url_for('showStartBuild', part_type='motherboard') }}">
                     <img src="static\buildingPCImage.png"></a></div>
             <div class="imgboxbody">
+                <p class="h5">
+                    Start Building
+                </p>
                 <p>
-                    Start Building<br>
                     Create a custom PC for your needs.
                 </p>
             </div>
@@ -30,21 +48,25 @@
             <div class="imginbox"> <a href="\preBuilts">
                     <img src="static\prebuilt.webp" alt="prebuilt-pc"></a></div>
             <div class="imgboxbody">
+                <p class="h5">
+                    Prebuilts
+                </p>
                 <p>
-                    Prebuilts<br>
                     Browse prebuilt computers.
                 </p>
             </div>
         </div>
 
-        <!-- Browse PCs -->
+        <!-- Check FAQ -->
         <div class="imgbox1">
-            <div class="imginbox"> <a href="\browse">
-                    <img src="static\listings2.jpg" alt="prebuilt-pc"></a></div>
+            <div class="imginbox"> <a href="/faq">
+                    <img src="static\faq.png" alt="prebuilt-pc"></a></div>
             <div class="imgboxbody">
+                <p class="h5">
+                    Checkout our FAQ
+                </p>
                 <p>
-                    Browse Listings<br>
-                    Browse computers up for sale from other users.
+                    Get answers to questions you might have.
                 </p>
             </div>
         </div>
