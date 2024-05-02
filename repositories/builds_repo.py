@@ -30,7 +30,7 @@ def get_all_users_for_table():
     with pool.connection() as conn:
         with conn.cursor(row_factory=dict_row) as cursor:
             cursor.execute('''
-                            SELECT user_id, username, email, hashed_password, is_admin
+                            SELECT user_id, username, hashed_password, is_admin
                             FROM users
                            ''')
             return cursor.fetchall()
@@ -191,6 +191,19 @@ def get_user_by_username(username: str)-> None:
             user = cursor.fetchone()
             return user
 
+def create_part(part_name: dict, part_type: str, part_image: str, part_url: str, brand: str, price, rating):
+    pool = get_pool()
+    with pool.connection() as conn:
+        with conn.cursor() as cursor:
+            cursor.execute('''
+                            INSERT INTO parts (part_name, part_type, part_image, part_url, brand, price, rating) 
+                            VALUES (%(part_name)s, %(part_type)s, %(part_image)s, %(part_url)s, %(brand)s, %(price)s, %(rating)s)
+                            RETURNING part_id
+                           ''', {'part_name': part_name, 'part_type': part_type, 'part_image': part_image, 'part_url': part_url, 'brand': brand, 'price': price, 'rating': rating})
+            res = cursor.fetchone()
+            if not res:
+                raise Exception('Failed to create part')
+            return res[0]
 
 def create_build(parts: dict, build_type: str, build_name: str, is_private: bool, user_id: int, build_image: str = 'https://ralfvanveen.com/wp-content/uploads//2021/06/Placeholder-_-Begrippenlijst.svg'):
     build_timestamp = datetime.now()
