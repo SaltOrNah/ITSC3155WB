@@ -3,8 +3,8 @@ from flask import Flask, abort, redirect, render_template, request, url_for, ses
 from repositories import builds_repo
 from dotenv import load_dotenv
 from flask_bcrypt import Bcrypt
-from authlib.integrations.flask_client import OAuth # type: ignore
-from authlib.common.security import generate_token # type: ignore
+from authlib.integrations.flask_client import OAuth  # type: ignore
+from authlib.common.security import generate_token  # type: ignore
 load_dotenv()
 
 app = Flask(__name__)
@@ -29,7 +29,7 @@ def google():
         client_id=GOOGLE_CLIENT_ID,
         client_secret=GOOGLE_CLIENT_SECRET,
         server_metadata_url=CONF_URL,
-        redirect_uri= 'http://127.0.0.1:5000/google/auth/',
+        redirect_uri= 'https://itsc3155wb.onrender.com/google/auth/',
         client_kwargs={
             'scope': 'openid email profile'
         }
