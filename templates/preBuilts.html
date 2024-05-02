@@ -1,24 +1,26 @@
 {% extends '_layout.html' %}
 
 {% block title %}PC Building App{% endblock %}
-    
+
+{% block head %}<link rel="stylesheet" href="{{ url_for('static', filename='buildpage.css') }}">{% endblock %}
+
 {% block body %}
 <div class="container-fluid">
     <div class="row">
         <!-- Vertical Navigation -->
         <div class="col-md-3">
-            <ul class="nav flex-column">
+            <ul class="nav flex-column border freeze">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('showPreBuilts', content='gaming') }}">Gaming</a>
+                    <a class="nav-link {%if content == 'gaming'%}border .bg-light fw-bold text-success{%endif%}" href="{{ url_for('showPreBuilts', content='gaming') }}">Gaming</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('showPreBuilts', content='recording') }}">Streaming/Recording</a>
+                    <a class="nav-link {%if content == 'recording'%}border .bg-light fw-bold text-success{%endif%}" href="{{ url_for('showPreBuilts', content='recording') }}">Streaming/Recording</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('showPreBuilts', content='work') }}">Work/Office</a>
+                    <a class="nav-link {%if content == 'work'%}border .bg-light fw-bold text-success{%endif%}" href="{{ url_for('showPreBuilts', content='work') }}">Work/Office</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('showPreBuilts', content='school') }}">School</a>
+                    <a class="nav-link {%if content == 'school'%}border .bg-light fw-bold text-success{%endif%}" href="{{ url_for('showPreBuilts', content='school') }}">School</a>
                 </li>
             </ul>
         </div>

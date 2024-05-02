@@ -43,7 +43,7 @@
             {% endfor %}
         </tbody>
     </table>
-    {% if pc['user_id'] == user['user_id'] %}
+    {% if pc['user_id'] == user['user_id'] or user['is_admin'] %}
     <form action="/delete_build" method="POST">
         <input type="hidden" name="build_id" value="{{ pc['build_id'] }}">
         <button type="submit" class="btn btn-danger btn-lg">Remove Build</button>
