@@ -36,12 +36,13 @@ def google():
     )
 
     # Redirect to google_auth function
+    
     redirect_uri = url_for('google_auth', _external=True)
-    return oauth.google.authorize_redirect(redirect_uri)
+    session['nonce'] = generate_token()
+    return oauth.google.authorize_redirect(redirect_uri, nonce=session['nonce'])
 
 @app.route('/google/auth/')
 def google_auth():
-    session['nonce'] = generate_token()
     token = oauth.google.authorize_access_token()
     user = oauth.google.parse_id_token(token, nonce=session['nonce'])
     if builds_repo.does_username_exist(user['name']):
