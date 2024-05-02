@@ -309,7 +309,7 @@ def for_testing_only_delete_user(username: int):
     with pool.connection() as conn:
         with conn.cursor() as cursor:
             cursor.execute('''
-                            DELETE FROM parts
+                            DELETE FROM users
                             WHERE username = %s
                            ''', [username])
             conn.commit()

@@ -11,7 +11,7 @@ def test_get_all_parts_by_build_id():
     if(user is None):
         user = builds_repo.create_user("Example", "password")
     part = builds_repo.get_all_parts_for_table()
-    build_id = builds_repo.create_build(part, "gaming", "Great", False, user['user_id'])
+    build_id = builds_repo.create_build(part, "gaming", "Great", False, 1, "")
 
     parts1 = builds_repo.get_all_parts_by_build_id(build_id)
     builds_repo.delete_build_by_id(build_id)
