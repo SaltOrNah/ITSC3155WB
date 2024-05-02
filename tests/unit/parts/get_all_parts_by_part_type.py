@@ -7,16 +7,11 @@ def test_get_all_parts_by_part_type():
     if(len(part) <= 0):
         builds_repo.create_part('ARCTIC Liquid Freezer III 56.3 CFM Liquid CPU Cooler', 'cooling', 'cooling_image_4.jpg', 'https://example.com/cooling4', 'Brand D', 94.99, 4.2)
         part = builds_repo.get_all_parts_for_table()
-    user = builds_repo.get_user_by_username("Example")
-    if(user is None):
-        user = builds_repo.create_user("Example", "password")
-    build_id = builds_repo.create_build(part, "gaming", "Great", False, user['user_id'])
     
-    build_name = builds_repo.get_build_by_id(build_id)['build_name']
-    total_price = 0
-    for p in part:
-        total_price += p['price']
-    build_price = builds_repo.get_total_build_price(build_name)
+    all_cooling = builds_repo.get_all_parts_by_part_type('cooling')
     
-    builds_repo.delete_build_by_id(build_id)
-    assert total_price == build_price['sum']
+    found_part = False
+    for p in all_cooling:
+        if p['part_name'] == 'ARCTIC Liquid Freezer III 56.3 CFM Liquid CPU Cooler':
+            found_part = "True"
+    assert found_part

@@ -191,7 +191,7 @@ def get_user_by_username(username: str)-> None:
             user = cursor.fetchone()
             return user
 
-def create_part(part_name: dict, part_type: str, part_image: str, part_url: str, brand: str, price, rating):
+def create_part(part_name: dict, part_type: str, part_image: str, part_url: str, brand: str, price, rating) -> int:
     pool = get_pool()
     with pool.connection() as conn:
         with conn.cursor() as cursor:
@@ -266,7 +266,7 @@ def get_all_parts_by_build_id(build_id: int):
     with pool.connection() as conn:
         with conn.cursor(row_factory=dict_row) as cursor:
             cursor.execute('''
-                            SELECT p.*
+                            SELECT p.part_id, p.part_name, p.part_type, p.brand, p.price, p.rating
                             FROM components c
                             JOIN parts p ON c.part_id = p.part_id
                             WHERE c.build_id = %s
@@ -292,4 +292,24 @@ def delete_build_by_id(build_id: int):
                             DELETE FROM builds
                             WHERE build_id = %s
                            ''', [build_id])
+            conn.commit()
+
+def for_testing_only_delete_part(part_id: int):
+    pool = get_pool()
+    with pool.connection() as conn:
+        with conn.cursor() as cursor:
+            cursor.execute('''
+                            DELETE FROM parts
+                            WHERE part_id = %s
+                           ''', [part_id])
+            conn.commit()
+
+def for_testing_only_delete_user(username: int):
+    pool = get_pool()
+    with pool.connection() as conn:
+        with conn.cursor() as cursor:
+            cursor.execute('''
+                            DELETE FROM parts
+                            WHERE username = %s
+                           ''', [username])
             conn.commit()
