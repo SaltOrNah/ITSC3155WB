@@ -70,13 +70,14 @@ body {
 }
 
 .imgbox1{
+    padding: 10px;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     border: 1px solid var(--color-3);
     width: 50vw;
     /* align-items: center; */
-    margin: 0 auto;
+    margin: 10px auto;
 }
 
 .imginbox{
@@ -92,6 +93,7 @@ body {
 
 .imgboxbody{
     /* border: 1px solid var(--color-3); */
+    padding: 20px;
     width: 50%;
     margin-right: 20px;
 }
