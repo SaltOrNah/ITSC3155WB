@@ -29,7 +29,7 @@ def google():
         client_id=GOOGLE_CLIENT_ID,
         client_secret=GOOGLE_CLIENT_SECRET,
         server_metadata_url=CONF_URL,
-        redirect_uri= 'https://itsc3155wb.onrender.com/google/auth/',
+        redirect_uri= 'http://127.0.0.1:5000/google/auth/',
         client_kwargs={
             'scope': 'openid email profile'
         }
@@ -229,7 +229,6 @@ def login():
 
 @app.get('/login')
 def showLogin():
-
     if session:
         return redirect(url_for('index'))
     return render_template('login.html', cart = cart, user = None)
